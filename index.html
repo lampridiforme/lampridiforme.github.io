@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<script>
+			if (localStorage.pagecount) {
+				localStorage.pagecount=Number(localStorage.pagecount) +1;
+			}
+			else {
+				localStorage.pagecount=1;
+			}
+			document.write("Visits: " + localStorage.pagecount + " time(s).");
+		</script>
+	</head>
 	<body>
 		<h1 align = "center">LOL #TBT WEB 1.0</h1>
 		<p align = "center">
