@@ -1,5 +1,5 @@
 .icon {
-	padding-top: 40px;
+	padding-top: 45px;
 	padding-bottom: 20px;
 }
 
@@ -13,7 +13,15 @@ a {
 	padding-top: 20px;
 }
 
+.descr {
+	padding-bottom: 20px;
+}
+
 p {
 	/*font-family: "Courier New", Courier, monospace;*/
-		text-align: center;
+	text-align: center;
+}
+
+div {
+	padding-top: 40px;
 }
