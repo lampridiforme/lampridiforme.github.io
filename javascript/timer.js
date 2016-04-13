@@ -31,3 +31,25 @@ function weasel() {
 		document.getElementById("weasel").innerHTML = "<br>";
 	}
 }
+
+// Start a counter and store info
+//Call it in the beginning to avoid the initial delay
+
+counter2();
+
+var counter2Timer = setInterval(counter2, 1000);
+
+function counter2() {
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.counter2Num) {
+            localStorage.counter2Num = ++localStorage.counter2Num;
+        }
+		else {
+			localStorage.counter2Num = 1;
+		}
+        document.getElementById("counter2").innerHTML = "localStorage counter is at " + localStorage.counter2Num + " second(s).";
+	} else {
+		document.getElementById("counter2").innerHTML = "Sorry, your browser does not support Web Storage...";
+	}
+}
+	
