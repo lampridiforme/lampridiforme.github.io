@@ -16,14 +16,14 @@ function counter() {
 	counterVal++;
 	document.getElementById("counter").innerHTML = counterVal;
 }
-// Display a message every once in a while, every half second
-var weaselStart = setInterval(weasel, 500);
+// Display a message every once in a while, every (I can't do math) second
+var weaselStart = setInterval(weasel, 200);
 
 function weasel() {
 	var randomNum = Math.floor(100*Math.random());
 	var popped = 0;
 	
-	if (randomNum <= 30 && popped == 0) {
+	if (randomNum <= 5 && popped == 0) {
 		document.getElementById("weasel").innerHTML = "POP!";
 		popped = 1;
 	}
