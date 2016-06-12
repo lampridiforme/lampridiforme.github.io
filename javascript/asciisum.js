@@ -19,9 +19,9 @@ function sum() {
 	var currentValue = 0;
 	var sum = 0;	//The sum of the character	
 	
-	checkTest(oCheckBox1, spacesOn);
-	checkTest(oCheckBox2, lowercaseOnly);
-	checkTest(oCheckBox3, uppercaseOnly);
+//	checkTest(oCheckBox1, spacesOn);
+//	checkTest(oCheckBox2, lowercaseOnly);
+//	checkTest(oCheckBox3, uppercaseOnly);
 	
 	for(var n=0; n<length; n++) {	//Increment through the length to access all chars
 	
