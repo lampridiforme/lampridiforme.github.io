@@ -3,10 +3,27 @@
 	padding-bottom: 20px;
 }
 
+.descrip {
+	text-decoration: overline;
+	font-size: 10px;
+}
+
+.fauxlist{
+	padding-bottom: -10px;
+	padding-top: 10px;
+}
+
+/* Does not actually work atm */
+.element{
+	padding-top: 20px;
+}
+
 a {
     color: black;
     text-align: center; 
-    text-decoration: bold;
+    font-weight: bold;
+	text-decoration: none;
+
 }
 
 .home {
@@ -14,8 +31,8 @@ a {
 }
 
 p {
-	/*font-family: "Courier New", Courier, monospace;*/
-		text-align: center;
+	font-family: "Lucida Console", Monaco, monospace;
+	text-align: center;
 }
 
 img {

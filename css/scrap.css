@@ -6,7 +6,8 @@
 a {
     color: black;
     text-align: center; 
-    text-decoration: bold;
+    font-weight: bold;
+	text-decoration: none;
 }
 
 .home {
@@ -17,8 +18,14 @@ a {
 	padding-bottom: 20px;
 }
 
+.textbox{
+	margin: auto;
+	/*padding: 20px 10px;	Alters top and bottom*/
+	/*line-height: 28px;*/
+}
+
 p {
-	/*font-family: "Courier New", Courier, monospace;*/
+	font-family: "Lucida Console", Monaco, monospace;
 	text-align: center;
 }
 

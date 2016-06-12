@@ -4,7 +4,7 @@
 var myVar = setInterval(myTimer, 10000); // Delay 10 seconds
 
 function myTimer() {
-    document.getElementById("demo").innerHTML = "Hello World and all those who inhabit it!"; //Changes demo's text to "hello world..."
+    document.getElementById("demo").innerHTML = "Your Neopets are hungry!"; //Changes demo's text to "hello world..."
 }
 
 // Count the seconds

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="./css/scrap.css">
+		<title>Sum Finder</title>
+		<link rel="shortcut icon" type="image/x-icon" href="./images/tinylogo.png" />
+	</head>
+	<body>
+		<div>
+		
+			<p class = "descr">
+				An ASCII sum-finder. Enter text in the box and press the button to convert. 
+			</p>
+			
+			<p class="textbox">
+				<textarea id="sentence" rows="5" cols="80" ></textarea>
+				<br>
+				<br>
+				<button align="center" class="button" onclick="sum()">Find sum</button>
+			</p>
+			<br>
+			<!--Implementation for other cases does not work yet:
+			<p class="checks" align="left">
+				<input type="checkbox" name="spaces" id="spaces" value="OFF">
+				<label for='spaces'>Remove spaces from sum</label>
+				<br>
+				<input type="checkbox" name="upper" id="upper" value="OFF">
+				<label for='upper'>Convert text to uppercase</label>
+				<br>
+				<input type="checkbox" name="lower" id="lower" value="OFF">
+				<label for='lower'>Convert text to lowercase</label>
+			</p>-->
+			<br>
+			<br>
+			<p id="result" class="text">
+				The sum is: 0
+			</p>
+
+			<p class = "home" align = "center">
+				<a href="index.html">
+					<img src="./Images/home.png" alt="home">
+				</a>
+				
+			</p>
+			
+			<script src = "./javascript/asciisum.js"></script>
+			
+		</div>
+	</body>
+</html>
