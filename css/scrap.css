@@ -19,7 +19,7 @@ a {
 }
 
 .textbox{
-	margin: auto;
+	/*margin: auto; */
 	/*padding: 20px 10px;	Alters top and bottom*/
 	/*line-height: 28px;*/
 }
