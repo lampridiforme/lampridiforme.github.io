@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="./css/scrap.css">
+		<title>Map Generator</title>
+		<link rel="shortcut icon" type="image/x-icon" href="./images/tinylogo.png" />
+	</head>
+	<body>
+		<div>
+		
+			<p class = "descr">
+				Enter a map size and check the desired legend elements to generate a map.
+			</p>
+			
+			<p class="forms" align="center">
+				<form align="center"> 
+					Map Size:          
+					<input type="text" name="textbox" id="size">
+				</form>
+				<!--<form align="center">
+					Terrains:&nbsp&nbsp
+					<input type="text" name="textbox" id="terrain">
+				</form>-->
+				
+			</p>
+			  
+			<p align="center">
+				<button onclick="generateMap()">Generate</button>
+			</p>
+			
+			<br>
+			
+			<p id="map" align="center">
+				<!--Should randomly generate 5x5 map each refresh
+				    alternately, save to cache and load each time-->
+				0 0 0 0 0<br>
+				0 0 0 0 0<br>
+				0 0 0 0 0<br>
+				0 0 0 0 0<br>
+			</p>
+			
+			<p class = "home" align = "center">
+				<a href="index.html">
+					<img src="./Images/home.png" alt="home">
+				</a>
+				
+			</p>
+			
+			<script src = "./javascript/map.js"></script>
+			
+		</div>
+	</body>
+</html>
