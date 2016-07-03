@@ -1,6 +1,51 @@
+#galicon{
+	padding: 5px 5px 0px 5px;
+}
+
+#temp{
+	height: 475px;
+}
+
+.image{
+	/*border-style: solid;
+    border-width: 5px;*/
+}
+
+.galleryinternal1 {
+	display: inline-block;
+	width: 200px;
+	overflow-y: scroll;
+	height: calc(100vh - 180px); /*Try calc(100vh-120px) also*/
+	position: absolute;
+	top: 0px;
+	left: -10px;
+}
+
+.galleryinternal2 {
+	display: inline-block;
+	width: calc(100% - 600px);
+	padding: 0px 0px 0px 200px;
+	position: relative;
+}
+
 .icon {
-	padding-top: 45px;
+	padding-top: 10px;
 	padding-bottom: 20px;
+}
+
+.descrip {
+/*	text-decoration: overline; */
+	font-size: 10px;
+}
+
+.fauxlist{
+	padding-bottom: -10px;
+	padding-top: 10px;
+}
+
+/* Does not actually work atm */
+.element{
+	padding-top: 20px;
 }
 
 a {
@@ -8,33 +53,16 @@ a {
     text-align: center; 
     font-weight: bold;
 	text-decoration: none;
-}
 
-.forms{
-	font-family: "Lucida Console", Monaco, monospace;
 }
 
 .home {
 	padding-top: 20px;
 }
 
-.descr {
-	padding-bottom: 20px;
-}
-
-.textbox{
-	/*margin: auto; */
-	/*padding: 20px 10px;	Alters top and bottom*/
-	/*line-height: 28px;*/
-}
-
 p {
 	font-family: "Lucida Console", Monaco, monospace;
 	text-align: center;
-}
-
-div {
-	padding-top: 40px;
 }
 
 img {
