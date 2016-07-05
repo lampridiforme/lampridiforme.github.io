@@ -8,17 +8,36 @@
     <body>
         <div>
 			
-			<div id="padding">
+			<div id="padding" align="center">
 				<!--consider placing logo here?-->
+				<h2>
+					Digging Simulator 20XX
+				</h2>
 			</div>
 			
 			<div>
 				
-				<div id="stats">
-					<p id="statTitle">Statistics</p>
-					<p id="depth">Depth: 0m</p>
-					<br>
-					<p id="width">Radius: 0m</p>
+				<!--Stats begin here-->
+				<div id="wrapper">
+					<div id="stats">
+						<p id="statTitle">Statistics</p>
+						<p id="depth">Depth: 0m</p>
+						<br>
+						<p id="width">Radius: 0m</p>						
+					</div>
+					
+					<div id="store">
+						<p id="storeTitle">Store</p>
+						<p id="storeContent">
+							<!--This gets updated to contain store items-->	
+						</p>
+					</div>
+				</div>
+				<!--Stats end here-->
+				
+				<!--Button-->
+				<div id="digSection">
+					<button type="button" id="digButton" onclick="dig()">Pick up Shovel</button>
 				</div>
 				
 				<!--Inventory begins here-->
@@ -41,9 +60,7 @@
 					<div align="center">
 						<br>
 						<p id="inventoryContent">
-							Old Shovel
-							<br><br>
-							Auto-Shovel	
+							<!--This gets updated to contain inventory items-->
 						</p>
 					</div>
 				</div>
