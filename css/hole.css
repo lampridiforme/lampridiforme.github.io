@@ -27,9 +27,18 @@ button{
 
 #digButton{
 	position: relative;
-	top: 25vh;
+	/*top: 25vh;*/
 	height: 100px;
 	width: 100px;
+}
+
+#digEvents{
+	min-height: 20vh;
+	padding-top: 10vh;
+}
+
+#eventContent{
+	
 }
 
 #wrapper{

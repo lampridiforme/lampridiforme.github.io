@@ -4,7 +4,11 @@
         <link rel="stylesheet" type="text/css" href="./css/hole.css">
         <title>Digging Simulator 20XX</title>
         <link rel="shortcut icon" type="image/x-icon" href="./images/tinylogo.png" />
-    </head>
+
+		<!--Regular JS-->
+		<script type="text/javascript" src = "./javascript/hole.js"></script>
+		
+	</head>
     <body>
         <div>
 			
@@ -37,6 +41,11 @@
 				
 				<!--Button-->
 				<div id="digSection">
+					<div id="digEvents">
+						<p id="eventContent">
+							<!-- Events go here -->
+						</p>
+					</div>
 					<button type="button" id="digButton" onclick="dig()">Pick up Shovel</button>
 				</div>
 				
@@ -46,7 +55,7 @@
 					<br>
 					<table id="inventoryTable">
 						<tr>
-							<th id="tools">
+							<th id="tools" onclick="showTools()">
 								Tools
 							</th>
 							<th id="materials">
@@ -66,8 +75,6 @@
 				</div>
 			
 			</div>
-		
-			<script src = "./javascript/hole.js"></script>
         
 		</div>
     </body>
