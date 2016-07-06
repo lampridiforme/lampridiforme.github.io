@@ -10,7 +10,7 @@ function myTimer() {
 // Count the seconds
 setInterval(counter, 1000)
 
-var counterVal = 0;
+var counterVal = 0;     
 
 function counter() {
 	counterVal++;
