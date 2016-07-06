@@ -51,6 +51,10 @@ button{
 #store{
 	text-align: center;
 	position: relative;
+	-webkit-user-select: none;	/*Removed highlighting*/
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	user-select: none; 
 }
 
 #storeTitle{
@@ -99,6 +103,10 @@ button{
 	text-align: center;
 	margin-left: auto;	/*Need this to center tables :c*/
 	margin-right: auto;	/*Need this too :c*/
+	-webkit-user-select: none;	/*Removed highlighting*/
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	user-select: none; 
 }
 
 #inventoryTitle{
