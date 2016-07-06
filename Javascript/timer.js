@@ -108,5 +108,8 @@ function counter2() {
 		document.getElementById("counter2").innerHTML = "Sorry, your browser does not support Web Storage...";
 	}
 }
+<<<<<<< HEAD
+=======
 >>>>>>> origin/master
+>>>>>>> master
 	
