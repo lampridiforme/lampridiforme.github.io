@@ -60,12 +60,13 @@ button{
 #storeTitle{
 	margin-top: 50px;
 	font-weight: bold;
+	padding-bottom: 15px;
 }
 
-#storeContent{
-	display: inline-block;
+.storeContent{
+	/*display: inline-block;
 	min-width: 150px;
-	text-align: center;
+	text-align: center;*/
 	height: 40vh;
 	overflow: auto;
 }

@@ -128,12 +128,16 @@ function dig(){
 		if(clicks == 5){
 			document.getElementById("eventContent").innerHTML = "";
 		}
-	}
-	if((clicks - initialDepth) == currentBiome.size){
-		initialDepth = clicks;
-		generateBiome(richness, false);
-	}
 	
+		if((clicks - initialDepth) == currentBiome.size){
+			initialDepth = clicks;
+			generateBiome(richness, false);
+			document.getElementById("eventContent").innerHTML = "You have hit the " + currentBiome.name + "!";
+		}
+		if(clicks == initialDepth+5){
+			document.getElementById("eventContent").innerHTML = "";
+		}
+	}
 	updateMaterials(currentResources[Math.floor(Math.random() * currentResources.length)]);
 	
  }
@@ -278,6 +282,8 @@ function showTools(){
 	if(toolToggle == false){
 		document.getElementById("inventoryContent").innerHTML = toolsString;
 		toolToggle = true;
+		materialsToggle = false;
+		treasureToggle = false;
 	}
 	else{
 		document.getElementById("inventoryContent").innerHTML = "";	
@@ -309,7 +315,9 @@ function showMaterials(){
 	}
 	if(materialsToggle == false){
 		document.getElementById("inventoryContent").innerHTML = materialsString;
+		toolToggle = false;
 		materialsToggle = true;
+		treasureToggle = false;
 	}
 	else{
 		document.getElementById("inventoryContent").innerHTML = "";	
@@ -339,6 +347,8 @@ function showTreasure(){
 	}
 	if(treasureToggle == false){
 		document.getElementById("inventoryContent").innerHTML = treasureString;
+		toolToggle = false;
+		materialsToggle = false;
 		treasureToggle = true;
 	}
 	else{
