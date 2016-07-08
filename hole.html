@@ -34,9 +34,9 @@
 						<p id="storeTitle">Store</p>
 						<p class="storeContent">
 							<!--This gets updated to contain store items-->	
-							<font onclick="window.alert('This is a test')">Auto-Shovel</font>
+							<font onclick="buyItem('Auto-Shovel');">Auto-Shovel</font>
 							<br>
-							<font size="2" color="grey" id="">50 Dirt</font>
+							<font size="2" color="grey" id="shovelPrice">20 Dirt</font>
 						</p>
 					</div>
 				</div>
@@ -47,6 +47,7 @@
 					<div id="digEvents">
 						<p id="eventContent">
 							<!-- Events go here -->
+							This looks like a good place to dig.
 						</p>
 					</div>
 					<button type="button" id="digButton" onclick="dig()">Pick up Shovel</button>
