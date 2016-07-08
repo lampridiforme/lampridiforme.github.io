@@ -1,5 +1,8 @@
 //Note to self: There is an appalling lack of getters and setters; implement them when done
 
+//Begin constants
+var AUTOSHOVEL_START_PRICE = 10;
+
 var clicks = 0;	//Number of clicks on the button
 var depth = 0;	//Actual depth, not just clicks
 var width = 0;	//Width of the hole; effects how many things you can keep in your hole
@@ -10,12 +13,12 @@ var initialDepth = 0;	//The starting depth of a biome, used to calculate if the 
 var tools = [];	//Saves inventory contents array for tools
 var materials = [];	//Same for materials
 var treasure = [];	//Same for treasure
-var store = [];	//Same for store	NOTE: May or may not be needed
+var store = ["Auto-Shovel", "Red Bull"];	//Same for store; static	
 
 var toolsQuantity = [];	//Parallel array to tools that contains the number of each item in the corresponding index
 var materialsQuantity = [];	//Same for materials
 var treasureQuantity = []; //Same for treasure
-var storePrice = [];	//Saves prices instead of quantity in context of store	NOTE: May or may not be needed
+var storePrice = [20, 50];	//Prices of items for the store; updated
 
 var toolToggle = false;	//Toggle for hiding the tools menu
 var materialsToggle = false;	//Toggle for hiding the material menu
@@ -25,7 +28,9 @@ var biomeNameFront = ["Reg", "Sub", "Shift", "Org", "Bed", "Surf", "Strat", "Top
 var biomeNameBack = ["olite", "soil", "rock", "pit", "olos", "izon", "ural", "ologic", "imentary", "ic", "eous", "imorph", "elogos", "undre", "ilayer", "abond", "anic"];
 var oreList = ["Copper Ore", "Iron Ore", "Silver Ore", "Gold Ore", "Platinum Ore", "Palladium Ore", "Uranium Ore", "Lead Ore", "Aluminum Ore"]
 
+//Misc objects/variables
 var checker = setInterval(automatic, 10);	//Keep checking the automatic function
+var storeString = "";	//String that will contain the store information
 
 //Some initial item booleans
 var shovelGot = false;
@@ -126,6 +131,7 @@ function dig(){
 		document.getElementById("eventContent").innerHTML = "Check your inventory by clicking on Tools, Materials, or Treasure tabs.";
 		generateBiome(richness, true);
 		updateTools("Old Shovel");
+		updateStore("Auto-Shovel");
 		width++;
 	}
 	else if(clicks > 1){
@@ -143,7 +149,7 @@ function dig(){
 			generateBiome(richness, false);
 			document.getElementById("eventContent").innerHTML = "You have hit the " + currentBiome.name + "!";
 		}
-		if(clicks == initialDepth+5){
+		if(clicks == initialDepth+5){	//Get rid of the new biome message after 5 clicks
 			document.getElementById("eventContent").innerHTML = "";
 		}
 		updateMaterials(currentResources[Math.floor(Math.random() * currentResources.length)]);	//Only start updating when the shovel hits the dirt
@@ -163,8 +169,8 @@ function buyItem(item){
 	var dirtIndex = materials.indexOf("Dirt");	//At this point the vars contain the index of the items
 	var autoShovelIndex = materials.indexOf("Auto-Shovel");
 	
-	window.alert("BUYITEM1 dirtIndex: " + dirtIndex);
-	window.alert("BUYITEM1 autoShovelIndex: " + autoShovelIndex);
+	//window.alert("BUYITEM1 dirtIndex: " + dirtIndex);
+	//window.alert("BUYITEM1 autoShovelIndex: " + autoShovelIndex);
 	
 	if(dirtIndex >= 0){	//At this point vars contain the quantity of items
 		dirtIndex = materialsQuantity[dirtIndex];
@@ -180,31 +186,37 @@ function buyItem(item){
 		autoShovelIndex = 0;
 	}
 	
-	window.alert("BUYITEM2 dirtIndex: " + dirtIndex);
-	window.alert("BUYITEM2 autoShovelIndex: " + autoShovelIndex);
+	//window.alert("BUYITEM2 dirtIndex: " + dirtIndex);
+	//window.alert("BUYITEM2 autoShovelIndex: " + autoShovelIndex);
 	
 	if(item == "Auto-Shovel"){	//Initial price: 50 dirt
-		if(dirtIndex - priceRaiser(50, autoShovelIndex) > 0){	//If the purchase doesn't run us into the ground...
-			dirtIndex = dirtIndex -  priceRaiser(50, autoShovelIndex);
-			updateMaterials("Auto-Shovel");
+		if(dirtIndex - priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) > 0){	//If the purchase doesn't run us into the ground...
+			materialsQuantity[materials.indexOf("Dirt")] = dirtIndex -  priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) - 1;	//Use -1 to negate the additional +1 made by updateMaterials
+			updateTools("Auto-Shovel");
+			updateMaterials("Dirt");
+			document.getElementById("shovelPrice").innerHTML = priceRaiser(AUTOSHOVEL_START_PRICE, toolsQuantity[tools.indexOf("Auto-Shovel")]) + " Dirt";	//Layer violation but its the only way :(
+			autoShovelFunctionality();
 		}
 		else{
-			window.alert("NOT ENOUGH: Dirt: " + dirtIndex + " Price: " + priceRaiser(50, autoShovelIndex));
+			//window.alert("NOT ENOUGH: Dirt: " + dirtIndex + " Price: " + priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex));
 		}
 	}
 }
 
 /* priceRaiser(int, int): raises the price of an item depending on the quantity and original price (exponential) */
 function priceRaiser(originalPrice, quantity){
-	window.alert("PRICERAISER Original Price: " + originalPrice + " Quantity: " + quantity);
-	newPrice = Math.floor(((Math.pow(quantity, 1.5))/3) + originalPrice);
-	window.alert("PRICERAISER Original Price: " + originalPrice + " Quantity: " + quantity + " New Price: " + newPrice);
+	//window.alert("PRICERAISER Original Price: " + originalPrice + " Quantity: " + quantity);
+	newPrice = Math.ceil((Math.pow(quantity, 1.5))/1.5) + originalPrice;
+	//window.alert("PRICERAISER Original Price: " + originalPrice + " Quantity: " + quantity + " New Price: " + newPrice);
 	return newPrice;
 }
 
 /* autoShovelFunctionality(): Performs the depth incrementation for an auto-shovel */
 function autoShovelFunctionality(){
-	depth = depth + (1 * materialsQuantity[materials.indexOf("Auto-Shovel")]);
+	//window.alert("autoShovel index: " + tools.indexOf("Auto-Shovel"));
+	depth = depth + (1 * toolsQuantity[tools.indexOf("Auto-Shovel")]);
+	updateDepth(depth);
+	window.setTimeout("autoShovelFunctionality();", 1000*1);
 }
   
 /* updateDepth(int): updates the HTML depth line to equal the new value */
@@ -322,6 +334,13 @@ function updateTreasure(newItem){
 		document.getElementById("inventoryContent").innerHTML = treasureString;
 	}
 }
+
+/* updateStore(): updates the store stock and prices */
+function updateStore(item){
+	//This is harder than I thought
+}
+
+//grumble...stupid layer violations...grumble...
 
 /* Shows the tools in the inventoryContent section */
 function showTools(){
