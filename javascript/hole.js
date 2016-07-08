@@ -1,17 +1,21 @@
+//Note to self: There is an appalling lack of getters and setters; implement them when done
+
 var clicks = 0;	//Number of clicks on the button
 var depth = 0;	//Actual depth, not just clicks
 var width = 0;	//Width of the hole; effects how many things you can keep in your hole
-var currentBiome;
-var currentResources = [];
-var initialDepth = 0;
+var currentBiome;	//The current biome object the player is in
+var currentResources = [];	//A list of the resources one can currently obtain
+var initialDepth = 0;	//The starting depth of a biome, used to calculate if the biome is done
 
 var tools = [];	//Saves inventory contents array for tools
 var materials = [];	//Same for materials
 var treasure = [];	//Same for treasure
+var store = [];	//Same for store	NOTE: May or may not be needed
 
 var toolsQuantity = [];	//Parallel array to tools that contains the number of each item in the corresponding index
 var materialsQuantity = [];	//Same for materials
 var treasureQuantity = []; //Same for treasure
+var storePrice = [];	//Saves prices instead of quantity in context of store	NOTE: May or may not be needed
 
 var toolToggle = false;	//Toggle for hiding the tools menu
 var materialsToggle = false;	//Toggle for hiding the material menu
@@ -21,18 +25,25 @@ var biomeNameFront = ["Reg", "Sub", "Shift", "Org", "Bed", "Surf", "Strat", "Top
 var biomeNameBack = ["olite", "soil", "rock", "pit", "olos", "izon", "ural", "ologic", "imentary", "ic", "eous", "imorph", "elogos", "undre", "ilayer", "abond", "anic"];
 var oreList = ["Copper Ore", "Iron Ore", "Silver Ore", "Gold Ore", "Platinum Ore", "Palladium Ore", "Uranium Ore", "Lead Ore", "Aluminum Ore"]
 
+var checker = setInterval(automatic, 10);	//Keep checking the automatic function
+
 //Some initial item booleans
 var shovelGot = false;
   
 //Other initializtion booleans
-var biomeExhausted = false;	//For when the number of clicks to get through the biome has been exhausted
-  
-/* Generates a random integer given a min and max integer */
+
+
+
+
+
+
+
+/* getRandomInt(int, int): generates a random integer given a min and max integer */
 function getRandomInt(min, max){
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
   
-/* biome(name, depth, resources, treasure): constructor for a biome
+/* biome(string, int, array, bool): constructor for a biome
 	-name: name of biome as string
 	-depth: integer number of clicks it takes to get through
 	-resources: array of resources that can be found
@@ -113,23 +124,21 @@ function dig(){
 	if(clicks == 1){
 		document.getElementById("digButton").innerHTML = "Dig";
 		document.getElementById("eventContent").innerHTML = "Check your inventory by clicking on Tools, Materials, or Treasure tabs.";
-		
 		generateBiome(richness, true);
 		updateTools("Old Shovel");
+		width++;
 	}
 	else if(clicks > 1){
-		depth = clicks - 1;
-		updateDepth(depth);	//Subtract 1 so that there isn't one extra
+		depth = clicks - 1;	//Subtract 1 so that there isn't one extra
 							//meter, but theres got to be a better way...
-		if(clicks == 2){
-			width = 1;
-			updateWidth(width);
-		}
+		updateDepth(depth * toolsQuantity[0]);	//Multiply by the number of shovels
+												//Note to self- find the index of any other click tools later on
+		updateWidth(width);
 		if(clicks == 5){
 			document.getElementById("eventContent").innerHTML = "";
 		}
 	
-		if((clicks - initialDepth) == currentBiome.size){
+		if((clicks - initialDepth) == currentBiome.size){	//Hit another biome
 			initialDepth = clicks;
 			generateBiome(richness, false);
 			document.getElementById("eventContent").innerHTML = "You have hit the " + currentBiome.name + "!";
@@ -137,11 +146,67 @@ function dig(){
 		if(clicks == initialDepth+5){
 			document.getElementById("eventContent").innerHTML = "";
 		}
+		updateMaterials(currentResources[Math.floor(Math.random() * currentResources.length)]);	//Only start updating when the shovel hits the dirt
 	}
-	updateMaterials(currentResources[Math.floor(Math.random() * currentResources.length)]);
 	
  }
  
+/* automatic(): performs automatic functions, eg. timer based incremeters */
+function automatic(){
+	if(materialsQuantity[materials.indexOf("Auto-Shovel")] > 0){
+		var rate = setInterval(autoShovelFunctionality, 1000 * 20);	//Shovel once every 20 seconds
+	}
+}
+ 
+/* buyItem(string): performs the necessary calculations to buy an item from the store, then updates the html */
+function buyItem(item){
+	var dirtIndex = materials.indexOf("Dirt");	//At this point the vars contain the index of the items
+	var autoShovelIndex = materials.indexOf("Auto-Shovel");
+	
+	window.alert("BUYITEM1 dirtIndex: " + dirtIndex);
+	window.alert("BUYITEM1 autoShovelIndex: " + autoShovelIndex);
+	
+	if(dirtIndex >= 0){	//At this point vars contain the quantity of items
+		dirtIndex = materialsQuantity[dirtIndex];
+	}
+	else{
+		dirtIndex = 0;
+	}
+	
+	if(autoShovelIndex >= 0){
+		autoShovelIndex = materialsQuantity[autoShovelIndex];
+	}
+	else{
+		autoShovelIndex = 0;
+	}
+	
+	window.alert("BUYITEM2 dirtIndex: " + dirtIndex);
+	window.alert("BUYITEM2 autoShovelIndex: " + autoShovelIndex);
+	
+	if(item == "Auto-Shovel"){	//Initial price: 50 dirt
+		if(dirtIndex - priceRaiser(50, autoShovelIndex) > 0){	//If the purchase doesn't run us into the ground...
+			dirtIndex = dirtIndex -  priceRaiser(50, autoShovelIndex);
+			updateMaterials("Auto-Shovel");
+		}
+		else{
+			window.alert("NOT ENOUGH: Dirt: " + dirtIndex + " Price: " + priceRaiser(50, autoShovelIndex));
+		}
+	}
+}
+
+/* priceRaiser(int, int): raises the price of an item depending on the quantity and original price (exponential) */
+function priceRaiser(originalPrice, quantity){
+	window.alert("PRICERAISER Original Price: " + originalPrice + " Quantity: " + quantity);
+	newPrice = Math.floor(((Math.pow(quantity, 1.5))/3) + originalPrice);
+	window.alert("PRICERAISER Original Price: " + originalPrice + " Quantity: " + quantity + " New Price: " + newPrice);
+	return newPrice;
+}
+
+/* autoShovelFunctionality(): Performs the depth incrementation for an auto-shovel */
+function autoShovelFunctionality(){
+	depth = depth + (1 * materialsQuantity[materials.indexOf("Auto-Shovel")]);
+}
+  
 /* updateDepth(int): updates the HTML depth line to equal the new value */
 function updateDepth(value){
 	document.getElementById("depth").innerHTML = "Depth: " + value + "m";
@@ -163,7 +228,7 @@ function updateTools(newItem){
 		toolsQuantity[toolIndex]++;	//Otherwise increment the quantity
 	}
 	
-	if(toolToggle == true){
+	if(toolToggle == true){	//If window is already open, update it
 		toolsString = "";
 		for(var item = 0; item < tools.length; item++){	//Loop through the arrays to generate a string
 			if(toolsQuantity[item] > 1){
@@ -356,6 +421,11 @@ function showTreasure(){
 		treasureToggle = false;
 	}
 }
+
+
+
+
+
 
 /* OBSOLETE: updateToolsOld(string): older version of updateTools that only updates the string */ 
 function updateToolsOld(newItem){
