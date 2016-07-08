@@ -1,7 +1,7 @@
 //Note to self: There is an appalling lack of getters and setters; implement them when done
 
 //Begin constants
-var AUTOSHOVEL_START_PRICE = 10;
+var AUTOSHOVEL_START_PRICE = 20;
 
 var clicks = 0;	//Number of clicks on the button
 var depth = 0;	//Actual depth, not just clicks
