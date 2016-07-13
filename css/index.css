@@ -1,0 +1,43 @@
+body{
+	padding-top: 10vh;
+	padding-bottom: 10vh;
+	height: 70vh;
+}
+
+p {
+	vertical-align: middle;
+	text-align: center;
+	font-family: "Lucida Console", Monaco, monospace;
+}
+
+h1 {
+	vertical-align: middle;
+}
+.menu {	
+	/*padding-top: 20px;*/
+	height: 20%;
+	padding: 5px 0px 5px 0px;
+}
+
+.icon {
+	/*padding-top: 40px;
+	padding-bottom: 0px;*/
+	height: 40%;
+}
+
+img {
+	vertical-align: middle;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+	image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}

@@ -1,3 +1,5 @@
+/* Note to self: redo this with 2 inline divs side by side; this way the image will never overlap the scrollbar */
+
 #galicon{
 	padding: 5px 5px 0px 5px;
 }
