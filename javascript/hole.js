@@ -192,7 +192,7 @@ function buyItem(item){
 	
 	if(item == "Auto-Shovel"){
 		if(dirtIndex - priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) > 0){	//If the purchase doesn't run us into the ground...
-			window.alert("Price: " + priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) + " AutoShovels: " + autoShovelIndex + " AutoShovel index: " + tools.indexOf("Auto-Shovel"));
+			//window.alert("Price: " + priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) + " AutoShovels: " + autoShovelIndex + " AutoShovel index: " + tools.indexOf("Auto-Shovel"));
 			materialsQuantity[materials.indexOf("Dirt")] = dirtIndex - priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) - 2;	//Use -1 to negate the additional +1 made by updateMaterials and another -1 to negate the new call to autoShovelFunctionality
 			storePrice[store.indexOf("Auto-Shovel")] = priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex);
 			updateTools("Auto-Shovel");
