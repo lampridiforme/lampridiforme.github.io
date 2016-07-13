@@ -2,6 +2,7 @@
 
 //Begin constants
 var AUTOSHOVEL_START_PRICE = 20;
+var AUTOSHOVEL_RATE = 20;
 
 var clicks = 0;	//Number of clicks on the button
 var depth = 0;	//Actual depth, not just clicks
@@ -135,7 +136,7 @@ function dig(){
 		width++;
 	}
 	else if(clicks > 1){
-		depth = clicks - 1;	//Subtract 1 so that there isn't one extra
+		depth++;	//Subtract 1 so that there isn't one extra
 							//meter, but theres got to be a better way...
 		updateDepth(depth * toolsQuantity[0]);	//Multiply by the number of shovels
 												//Note to self- find the index of any other click tools later on
@@ -167,7 +168,7 @@ function automatic(){
 /* buyItem(string): performs the necessary calculations to buy an item from the store, then updates the html */
 function buyItem(item){
 	var dirtIndex = materials.indexOf("Dirt");	//At this point the vars contain the index of the items
-	var autoShovelIndex = materials.indexOf("Auto-Shovel");
+	var autoShovelIndex = tools.indexOf("Auto-Shovel");
 	
 	//window.alert("BUYITEM1 dirtIndex: " + dirtIndex);
 	//window.alert("BUYITEM1 autoShovelIndex: " + autoShovelIndex);
@@ -180,7 +181,7 @@ function buyItem(item){
 	}
 	
 	if(autoShovelIndex >= 0){
-		autoShovelIndex = materialsQuantity[autoShovelIndex];
+		autoShovelIndex = toolsQuantity[autoShovelIndex];
 	}
 	else{
 		autoShovelIndex = 0;
@@ -189,9 +190,11 @@ function buyItem(item){
 	//window.alert("BUYITEM2 dirtIndex: " + dirtIndex);
 	//window.alert("BUYITEM2 autoShovelIndex: " + autoShovelIndex);
 	
-	if(item == "Auto-Shovel"){	//Initial price: 50 dirt
+	if(item == "Auto-Shovel"){
 		if(dirtIndex - priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) > 0){	//If the purchase doesn't run us into the ground...
-			materialsQuantity[materials.indexOf("Dirt")] = dirtIndex -  priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) - 1;	//Use -1 to negate the additional +1 made by updateMaterials
+			window.alert("Price: " + priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) + " AutoShovels: " + autoShovelIndex + " AutoShovel index: " + tools.indexOf("Auto-Shovel"));
+			materialsQuantity[materials.indexOf("Dirt")] = dirtIndex - priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex) - 2;	//Use -1 to negate the additional +1 made by updateMaterials and another -1 to negate the new call to autoShovelFunctionality
+			storePrice[store.indexOf("Auto-Shovel")] = priceRaiser(AUTOSHOVEL_START_PRICE, autoShovelIndex);
 			updateTools("Auto-Shovel");
 			updateMaterials("Dirt");
 			document.getElementById("shovelPrice").innerHTML = priceRaiser(AUTOSHOVEL_START_PRICE, toolsQuantity[tools.indexOf("Auto-Shovel")]) + " Dirt";	//Layer violation but its the only way :(
@@ -216,7 +219,10 @@ function autoShovelFunctionality(){
 	//window.alert("autoShovel index: " + tools.indexOf("Auto-Shovel"));
 	depth = depth + (1 * toolsQuantity[tools.indexOf("Auto-Shovel")]);
 	updateDepth(depth);
-	window.setTimeout("autoShovelFunctionality();", 1000*1);
+	for(var increment = 0; increment < toolsQuantity[tools.indexOf("Auto-Shovel")]; increment++){	//We want to call once per autoshovel	
+		updateMaterials(currentResources[Math.floor(Math.random() * currentResources.length)]);
+	}
+	window.setTimeout("autoShovelFunctionality();", 1000 * AUTOSHOVEL_RATE);	//One click per 20 seconds
 }
   
 /* updateDepth(int): updates the HTML depth line to equal the new value */
@@ -231,7 +237,7 @@ function updateWidth(value){
 
 /* updateTools(string): updates the tools array to contain a new item or increment the quantity of an existing item */ 
 function updateTools(newItem){
-	toolIndex = tools.indexOf(newItem);
+	var toolIndex = tools.indexOf(newItem);
 	if(toolIndex == -1){
 		tools.push(newItem);	//If the item is new, create new index in both arrays
 		toolsQuantity.push(1);
@@ -266,7 +272,7 @@ function updateTools(newItem){
 
 /* updateMaterials(string): updates the materials array to contain a new item or increment the quantity of an existing item */
 function updateMaterials(newItem){
-	materialIndex = materials.indexOf(newItem);
+	var materialIndex = materials.indexOf(newItem);
 	if(materialIndex == -1){
 		materials.push(newItem);	//If the item is new, create new index in both arrays
 		materialsQuantity.push(1);
@@ -302,7 +308,7 @@ function updateMaterials(newItem){
 
 /* updateTreasure(string): updates the treasure array to contain a new item or increment the quantity of an existing item */
 function updateTreasure(newItem){
-	treasureIndex = treasure.indexOf(newItem);
+	var treasureIndex = treasure.indexOf(newItem);
 	if(treasureIndex == -1){
 		treasure.push(newItem);	//If the item is new, create new index in both arrays
 		treasureQuantity.push(1);
