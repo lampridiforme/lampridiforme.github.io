@@ -15,14 +15,15 @@ h1 {
 }
 .menu {	
 	/*padding-top: 20px;*/
-	height: 20%;
+	height: 30%;
 	padding: 5px 0px 5px 0px;
 }
 
 .icon {
 	/*padding-top: 40px;
 	padding-bottom: 0px;*/
-	height: 40%;
+	height: 30%;
+	padding-bottom: 10px;
 }
 
 img {
