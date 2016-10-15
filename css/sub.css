@@ -3,6 +3,12 @@
 	padding-bottom: 20px;
 }
 
+.projtit{
+/* Doesnt actually do anything */
+   font-weight: bold;
+   text-align: center;
+}
+
 .descrip {
 /*	text-decoration: overline; */
 	font-size: 10px;
