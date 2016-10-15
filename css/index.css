@@ -1,7 +1,6 @@
-body{
-	padding-top: 10vh;
-	padding-bottom: 10vh;
-	height: 70vh;
+div {
+   padding-top: 5vh; 
+   padding-bottom: 5vh; 
 }
 
 p {
@@ -15,26 +14,26 @@ h1 {
 }
 .menu {	
 	/*padding-top: 20px;*/
-	height: 30%;
-	padding: 5px 0px 5px 0px;
+   padding-top: 2vh;
+   padding-bottom: 2vh;
 }
 
 .icon {
-	/*padding-top: 40px;
-	padding-bottom: 0px;*/
-	height: 30%;
-	padding-bottom: 10px;
+	padding-top: 2vh;
+   padding-bottom: 3vh;
+}
+
+.logo {
+   width: 120%;
+   height: auto;
 }
 
 img {
-	vertical-align: middle;
-}
-
-img {
+	 vertical-align: middle;
     max-width: 100%;
     height: auto;
     width: auto\9; /* ie8 */
-	image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+	 image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
     image-rendering: -moz-crisp-edges;          /* Firefox                        */
     image-rendering: -o-crisp-edges;            /* Opera                          */
     image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
