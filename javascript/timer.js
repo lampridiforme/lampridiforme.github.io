@@ -1,4 +1,4 @@
-
+//Christine this is a change
 
 // Change text when the interval is reached
 var myVar = setInterval(myTimer, 10000); // Delay 10 seconds
