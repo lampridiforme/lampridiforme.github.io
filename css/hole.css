@@ -68,6 +68,11 @@ button{
 	padding-bottom: 15px;
 }
 
+#storeItem{
+   cursor: pointer;
+   cursor: hand;
+}
+
 .storeContent{
 	/*display: inline-block;
 	min-width: 150px;
@@ -123,16 +128,22 @@ button{
 #tools {
 	width: 33%;
 	text-align: center;
+   cursor: pointer;
+   cursor: hand;
 }
 
 #materials {
 	width: 33%;
 	text-align: center;
+   cursor: pointer;
+   cursor: hand;
 }
 
 #treasure {
 	width: 33%;
 	text-align: center;
+   cursor: pointer;
+   cursor: hand;
 }
 
 #inventoryContent {
