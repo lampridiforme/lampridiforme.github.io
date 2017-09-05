@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 2, 2017, 2:31:14 PM
+    Author     : christinedai
+*/
+
+body {
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/testimgs/testwallpaper.png");
+}
+
+#mainarea {
+    /*margin: 0px 0px 0px 0px;*/
+    width: 50vh;
+    height: 50vh;
+    position: absolute;
+    top: 50%;
+    margin-top: calc(-25vh - 5vh);
+    left: 50%;
+    margin-left: calc(-25vh - 5vh);
+    border-style: solid;
+    border-width: 5vh;
+    border-color: black;
+    min-height: 200px;
+    min-width: 200px;
+    background-color: #95b798;
+    background: linear-gradient(to bottom, #95b798, #768678);
+    box-shadow: inset 0px -10px 50px 10px #121b13;
+    border-radius: 5vh;
+}
+
+.buttonmenu {
+    height: 20%;
+    width: 100%;
+    font-size: 0;   /* removes margin between the buttons */
+}
+
+#buttonmenutop {
+}
+
+#buttonmenubottom {
+}
+
+.button {
+    width: 25%;
+    height: calc(100% - 2vh);
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    text-align: center;
+    display: inline-block;
+}
+
+.button>img {
+    height: 100%;
+    filter: url(shadow.svg#drop-shadow);
+    filter: drop-shadow(1px 0px 2px #121b13);
+}
+
+#displayarea {
+    height: 60%;
+    width: 100%;
+}

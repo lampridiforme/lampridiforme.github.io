@@ -1,0 +1,241 @@
+/* 
+    Created on : Jul 28, 2017, 9:16:10 PM
+    Author     : christinedai
+*/
+
+::-webkit-scrollbar { 
+    /*display: none; */
+}
+
+* {
+    font-family: 'PT Serif', serif;
+    color: #55430f;
+}
+
+*:not(.title) {
+    font-size: 2vmin;
+}
+
+body {
+    width: 100%;
+    background-image: url("../img/birdwatch/backgroundtexture.jpg");
+    background-color: #fef2cf;
+    min-width: 800px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+    text-indent: -5px;
+}
+
+li:before { 
+    content: "- " 
+}
+
+.left, .middle, .right {
+    position: absolute;
+    width: calc(100%/3);
+    text-align: center;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #b9a070;
+    height: calc(100% - 10px);
+    min-width: 260px;
+}
+
+.left {
+    background-color: #fef2cf;
+    left: 0%;
+    top: 0;
+}
+
+.middle {
+    background-color: #fef2cf;
+    left: calc(100%/3 - 5px);
+    top: 0;
+}
+
+.right {
+    background-color: #fef2cf;
+    left: calc(100%/3*2 - 10px);
+    top: 0;
+}
+
+.stats {
+    height: 20%;
+}
+
+.fieldjournal {
+    height: 80%;
+    border-top: solid;
+    border-width: 5px;
+    border-color: #b9a070;
+}
+
+.mainclick>img, .entryclose {
+    cursor: pointer;
+    user-select: none;
+}
+
+.mainclick {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    height: 30%;
+}
+
+.mainclick>img {
+    height: 100%;
+}
+
+.shopitem {
+    cursor: pointer;
+    user-select: none;
+    background-color: #fef2cf;
+    height: calc(20% - 3vmin);
+    overflow-y: hidden;
+    /*margin-bottom: 5px;*/
+}
+
+.shopiteminfo {
+    display: inline-block;
+    height: 100%;
+    width: calc(60%);
+    float: left;
+    overflow: hidden;
+    padding-top: 3%;
+    padding-bottom: 5%;
+}
+
+.shopitemimage {
+    display: inline-block;
+    height: 100%;
+    width: calc(40%);
+    float: left;
+    text-align: center;
+}
+
+.shopitemimage>img {
+    height: 97%;
+    margin-bottom: 3%;
+}
+
+.title {
+    font-size: 3vmin;
+    height: calc(3vmin+2px);
+    background-color: #e4cda2;
+}
+
+.rate, .totalcount {
+    margin-top: 15px;
+}
+
+.shopcontents {
+    height: calc(100% - 6vmin - 12px);
+    /*background-color: #dbcea8;*/
+}
+
+.gametitle {
+    font-size: 3vmin;
+}
+
+.fieldjournalentries {
+    text-align: left;
+    overflow-y: scroll;
+    height: calc(20%);
+}
+
+.fieldjournalpage {
+    height: calc(80% - 40px);
+    border-top: solid;
+    border-width: 5px;
+    border-color: #b9a070;
+    overflow-y: scroll;
+}
+
+.entryclose {
+    display: none;
+    float: left;
+    font-size: 3vmin;
+    margin-left: 5px;
+}
+
+.entryimage {
+    display: none;
+    height: 50%;
+}
+
+.entryimage>img {
+    height: 100%;
+}
+
+.entryinfo {
+    margin-top: 2%;
+    height: calc(100% - 57% + 30px);
+    font-family: 'Bad Script', cursive;
+    padding-right: calc(2% + 5px);
+    padding-left: 2%;
+}
+
+.itemtitle {
+    margin-bottom: 2%;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.shopitemdesc, .shopitemquantity {
+}
+
+.shopitemflavortext {
+    font-style: italic;
+}
+
+.hidden {
+    display: none;
+}
+
+.entrytitle {
+    font-family: 'Bad Script', cursive;
+    font-size: 3vmin;
+    margin-top: calc(2% + 25px);
+    margin-bottom: 2%;
+    display: none;
+    text-decoration: underline;
+}
+
+.shopmenu {
+    height: 3vmin;
+}
+
+.menu {
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
+    text-align: center;
+}
+
+#attractors, #special {
+    position: absolute;
+    width: 50%;
+    text-align: center;
+    background-color: #e4cda2;
+}
+
+#attractors {
+    left: 0;
+    background-color: #fef2cf;
+    cursor: default;
+}
+
+#special {
+    right: 0;
+    cursor: pointer;
+}
+
+.entry {
+    display: none;
+}

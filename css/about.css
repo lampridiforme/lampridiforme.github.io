@@ -1,0 +1,93 @@
+/* 
+    Created on : Jul 29, 2017, 8:35:29 PM
+    Author     : christinedai
+*/
+
+html {
+    height: 100%; /* chain of command for nav height */
+}
+
+body {
+    text-align: center;
+    background-color: #3a3a3a;
+    color: white;
+    height: 100%; /* chain of command for nav height */
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited, a:hover {
+    color: #898989;
+    text-decoration: none;
+}
+
+a:visited:hover {
+    color: white;
+}
+
+footer {
+    height: 5%;
+}
+
+hr {
+    width: 50%;
+}
+
+.uselessnav {
+    height: 5vh;
+    width: 85%;
+    margin: 0 auto; /* center horizontally */
+}
+
+.usefulnav {
+    width: 85%;
+    margin: 0 auto; /* center horizontally */
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+
+.pagetitle {
+  font-size: 50px;
+}
+
+.pagecontent {
+  margin: 0 auto; /* center horizontally */
+  width: 85%;
+  height: auto;
+  font-size: 20px;
+}
+
+.aboutimg {
+    float: left;
+    width: 35%;
+    display: inline;
+    text-align: center;
+    /*background-color: blue;*/
+}
+
+.aboutimg>img {
+    width: 75%;
+}
+
+.aboutdesc {
+    float: left;
+    bottom: 90%;
+    padding-top: 5%;
+    width: 65%;
+    text-align: left;
+    /*background-color: red;*/
+}
+
+@media screen and (max-width: 700px) {
+    .aboutimg {
+        display: none;
+    }
+    
+    .aboutdesc {
+        text-align: center;
+        width: 100%;
+    }
+}

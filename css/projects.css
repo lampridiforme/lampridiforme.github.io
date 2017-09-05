@@ -1,0 +1,80 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 27, 2017, 11:06:50 PM
+    Author     : christinedai
+*/
+
+html {
+    height: 100%; /* chain of command for nav height */
+}
+
+body {
+    text-align: center;
+    background-color: #3a3a3a;
+    color: white;
+    height: 100%; /* chain of command for nav height */
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited, a:hover {
+    color: #898989;
+    text-decoration: none;
+}
+
+a:visited:hover {
+    color: white;
+}
+
+footer {
+    height: 5%;
+}
+
+hr {
+    width: 50%;
+}
+
+.uselessnav {
+    height: 5vh;
+    width: 85%;
+    margin: 0 auto; /* center horizontally */
+}
+
+.usefulnav {
+    width: 85%;
+    margin: 0 auto; /* center horizontally */
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+
+.pagetitle {
+  font-size: 50px;
+}
+
+.pagecontent {
+  margin: 0 auto; /* center horizontally */
+  width: 85%;
+  font-size: 20px;
+}
+
+.projecttitle {
+    font-size: 30px;
+    margin-bottom: -10px;
+    color: white !important;
+}
+
+.projecttitle>a:visited {
+    color: white !important;
+}
+
+.projectdesc {
+    font-size: 20px;
+    color: #898989;
+}

@@ -1,0 +1,113 @@
+/*
+    Contains debug backgrounds not present in main.css.
+*/
+/* 
+    Created on : Jul 26, 2017, 5:55:31 PM
+    Author     : christinedai
+*/
+
+html {
+    height: 100%; /* chain of command for nav height */
+}
+
+body {
+    text-align: center;
+    background-color: #3a3a3a;
+    color: white;
+    height: 100%; /* chain of command for nav height */
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited, a:hover {
+    color: #898989;
+    text-decoration: none;
+}
+
+a:visited:hover {
+    color: white;
+}
+
+footer {
+    height: 5%;
+    background-color: coral;
+}
+
+hr {
+    width: 50%;
+}
+
+.mainhr {
+    width: 30%;
+}
+
+.uselessnav {
+    height: 5%;
+    width: 85%;
+    margin: 0 auto; /* center horizontally */
+    background-color: yellow;
+}
+
+.usefulnav {
+    width: 85%;
+    margin: 0 auto; /* center horizontally */
+    font-size: 25px;
+    padding-bottom: 5px;
+    background-color: hotpink;
+}
+
+.mainmenu.pagetitle {
+    font-size: 70px !important;
+}
+
+.mainmenu {
+    font-size: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 85%;
+    display: inline-block;
+}
+
+.mainlogo {
+    background-color: red;
+}
+
+.mainlogo>img {
+    max-width: 30%;
+    height: auto;
+}
+
+.pagetitle {
+  background-color: pink;    
+  display: inline-block;
+  font-size: 50px;
+}
+
+.pagecontent {
+  background-color: skyblue;
+  margin: 0 auto; /* center horizontally */
+  width: 85%;
+}
+
+.projecttitle {
+    font-size: 30px;
+    background-color: cadetblue;
+    margin-bottom: -10px;
+}
+
+.projectdesc {
+    font-size: 20px;
+    background-color: aqua;
+}
+
+.gallerytitle {
+    font-size: 30px;
+}
+
+.galleryimg {
+    padding: 5px 5px 5px 5px;
+    background-color: chartreuse;
+}
