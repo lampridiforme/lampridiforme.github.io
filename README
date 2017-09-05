@@ -1,7 +1,0 @@
-The big messup of Summer 2016: If a file is not being removed
-when it should've been removed, then it's an issue with tracking 
-post-deletion. One should enter the command:
-	git rm --cached <filename>
-
-To create a base folder, use <base href="url">. Any file under it can then 
-be accessed as if we were in root

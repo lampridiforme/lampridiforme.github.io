@@ -1,38 +1,86 @@
-div {
-   padding-top: 5vh; 
-   padding-bottom: 5vh; 
+
+html {
+    height: 100%; /* chain of command for nav height */
 }
 
-p {
-	vertical-align: middle;
-	text-align: center;
-	font-family: "Lucida Console", Monaco, monospace;
+body {
+    text-align: center;
+    background-color: #3a3a3a;
+    color: white;
+    height: 100%; /* chain of command for nav height */
 }
 
-h1 {
-	vertical-align: middle;
-}
-.menu {	
-	/*padding-top: 20px;*/
-   padding-top: 2vh;
-   padding-bottom: 2vh;
+div,p,hr {
+    display: none;
 }
 
-.icon {
-	padding-top: 2vh;
-   padding-bottom: 3vh;
+a:link {
+    color: white;
+    text-decoration: none;
 }
 
-img {
-	 vertical-align: middle;
-    max-width: 100%;
+a:visited, a:hover {
+    color: #898989;
+    text-decoration: none;
+}
+
+a:visited:hover {
+    color: white;
+}
+
+footer {
+    height: 5%;
+}
+
+hr {
+    width: 50%;
+}
+
+.mainhr {
+    width: 30%;
+}
+
+.uselessnav {
+    height: 5vh;
+    width: 85%;
+    margin: 0 auto; /* center horizontally */
+}
+
+.usefulnav {
+    width: 85%;
+    margin: 0 auto; /* center horizontally */
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+
+.mainmenu.pagetitle {
+    font-size: 70px !important;
+}
+
+.mainmenu {
+    font-size: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 85%;
+}
+
+.mainlogo>img {
+    width: 15%;
+    max-width: 250px;
+    min-width: 75px;
     height: auto;
-    width: auto\9; /* ie8 */
-	 image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
-    image-rendering: -moz-crisp-edges;          /* Firefox                        */
-    image-rendering: -o-crisp-edges;            /* Opera                          */
-    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
-    image-rendering: pixelated; /* Chrome */
-    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
-    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+.pagetitle {
+  font-size: 50px;
+}
+
+.pagecontent {
+  margin: 0 auto; /* center horizontally */
+  width: 85%;
+  font-size: 20px;
+}
+
+.projecttitle {
+    font-size: 30px;
+    margin-bottom: -10px;
 }
