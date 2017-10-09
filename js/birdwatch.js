@@ -115,6 +115,36 @@ function displayItem3Quantity() {
         + Math.round(magicianquantity*magicianrate*10)/10 + " bps.");
 }
 
+function displayNewCostItem4() {
+    // TODO: figure out how to save original text and then use it
+    $("#shopitem4price").text("Costs " + Math.round(whistlecost));
+}
+
+function displayItem4Quantity() {
+    $("#shopitem4quantity").text("You have " + whistlequantity + ", summoning " 
+        + Math.round(whistlequantity*whistlerate*10)/10 + " bps.");
+}
+
+function displayNewCostItem5() {
+    // TODO: figure out how to save original text and then use it
+    $("#shopitem5price").text("Costs " + Math.round(statuecost));
+}
+
+function displayItem5Quantity() {
+    $("#shopitem5quantity").text("You have " + statuequantity + ", summoning " 
+        + Math.round(statuequantity*statuerate*10)/10 + " bps.");
+}
+
+function displayNewCostItem6() {
+    // TODO: figure out how to save original text and then use it
+    $("#shopitem6price").text("Costs " + Math.round(mansioncost));
+}
+
+function displayItem6Quantity() {
+    $("#shopitem6quantity").text("You have " + mansionquantity + ", summoning " 
+        + Math.round(mansionquantity*mansionrate*10)/10 + " bps.");
+}
+
 function calcNewCost(originalcost) {
     var newcost = originalcost * 1.5;
     return newcost;
@@ -283,6 +313,46 @@ $(document).ready(function() {
             displayRate();
             displayTotal();
             displayNewCostItem3();
+        }
+    });
+    
+    // whistle
+    $("#shopitem4").click(function() {
+        if(runningTotal-whistlecost >= 0) {
+            runningTotal -= whistlecost;
+            whistlecost = calcNewCost(whistlecost);
+            autoUpcount += whistlerate;
+            whistlequantity++;
+            displayItem4Quantity();
+            displayRate();
+            displayTotal();
+            displayNewCostItem4();
+        }
+    });
+    
+    $("#shopitem5").click(function() {
+        if(runningTotal-statuecost >= 0) {
+            runningTotal -= statuecost;
+            statuecost = calcNewCost(statuecost);
+            autoUpcount += statuerate;
+            statuequantity++;
+            displayItem5Quantity();
+            displayRate();
+            displayTotal();
+            displayNewCostItem5();
+        }
+    });
+    
+    $("#shopitem6").click(function() {
+        if(runningTotal-mansioncost >= 0) {
+            runningTotal -= mansioncost;
+            mansioncost = calcNewCost(mansioncost);
+            autoUpcount += mansionrate;
+            mansionquantity++;
+            displayItem6Quantity();
+            displayRate();
+            displayTotal();
+            displayNewCostItem6();
         }
     });
     
