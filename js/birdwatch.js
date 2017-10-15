@@ -8,6 +8,8 @@
 var runningTotal = 0;
 // cumulative total for units
 var cumulativeTotal = 0;
+// lifetime total units generated
+var lifetimeTotal = 0;
 // total number of unique elements seen
 var uniqueRunningTotal = 0;
 // increment for each click
@@ -73,6 +75,10 @@ function Attractor() {
 function displayTotal() {
     $(".totalcount").text(Math.floor(runningTotal) + " birds attracted (" 
         + uniqueRunningTotal + " unique)");
+}
+
+function displayLifetimeTotal() {
+    $(".lifetime").text("Seen " + Math.floor(lifetimeTotal) + " birds overall");
 }
 
 function displayRate() {
@@ -152,10 +158,12 @@ function calcNewCost(originalcost) {
 
 function autoUpdate() {
     runningTotal = runningTotal+(autoUpcount/100);
+    lifetimeTotal = lifetimeTotal+(autoUpcount/100);
     cumulativeTotal = runningTotal;
     achievementChecker(runningTotal, clickTotal, feederquantity, bathquantity, 
         magicianquantity);
     displayTotal();
+    displayLifetimeTotal();
 }
 
 function clearAttractAnnounce(bird) {
@@ -251,6 +259,7 @@ $(document).ready(function() {
     $(".mainclick").click(function() {
         runningTotal += clickmeUpcount;
         cumulativeTotal += clickmeUpcount;
+        lifetimeTotal += clickmeUpcount;
         clickTotal++;
         $(".mainclick>img").fadeTo(50, .7);
         $(".mainclick>img").fadeTo(50, 1.0);
@@ -277,8 +286,11 @@ $(document).ready(function() {
     // bird feeder
     $("#shopitem1").click(function() {
         if(runningTotal-feedercost >= 0) {
+            // decrement for payment
             runningTotal -= feedercost;
+            // calc new cost
             feedercost = calcNewCost(feedercost);
+            // update total auto-rate
             autoUpcount += feederrate;
             feederquantity++;
             displayItem1Quantity();

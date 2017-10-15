@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+// initial variable values for clean level/game restarts
+
 // health and energy
 var MAXHEALTH = 100;
 var MAXENERGY = 100;
@@ -15,6 +17,19 @@ var STARVEFAST = 7;
 var HEALSLOW = 1;
 var HEALMED = 2;
 var HEALFAST = 5;
+
+// game over types
+var NOT_DIE = -1;
+var ATTACKED = 0;
+var DROWNED = 1;
+var STARVED = 2;
+var POUNCE = 3;
+
+// game over strings
+var GAME_OVER = "GAME OVER.";
+var ATTACKED_DESC = "Your injuries are too great and you succumb to them.";
+var DROWNED_DESC = "You attempt to wade through the river, but the currents are too swift for you. You drown in the waves.";
+var STARVED_DESC = "You have starved to death.";
 
 // biomes
 var UNIDENTIFIED = -1;
@@ -104,43 +119,87 @@ var MAP = [
 
 // enemy descriptions
 // NOTE: these are vars because apparently vars aren't globally scoped???
+// TODO: when I get to refactoring turn these into enemy parameters
+// insect desc
 var MILLIPEDE_DESC = "a millipede crawling in the dirt";
 var BEETLE_DESC = "a beetle";
 var DRAGONFLY_DESC = "a perched dragonfly";
 var SCORPION_DESC = "a scorpion hiding under a rock";
+var BOB_DESC = "a snail named Bob";
+var MEGABOB_DESC = "a very large snail named Bob";
+
+// reptile desc
+var LIZARD_DESC = "a lizard warming itself in the sun";
+var IGUANA_DESC = "an iguana on a branch";
+var ALLIGATOR_DESC = "a gaping alligator";
+
+// amphibian desc
+var MUDFISH_DESC = "a floundering mudfish";
+var FROG_DESC = "a frog";
 
 // enemies
 // format: new Enemy({"name":"", "danger":});
 // insects
-var MILLIPEDE = new Enemy({"name":"Millipede", "danger":.5, "agilityModifier":.6});
-var BEETLE = new Enemy({"name":"Beetle", "danger":.2, "agilityModifier":.9});
-var DRAGONFLY = new Enemy({"name":"Dragonfly", "danger":.5, "agilityModifier":1.8});
-var SCORPION = new Enemy({"name":"Scorpion", "danger":10, "energyModifier":.2});
+var MILLIPEDE = new Enemy({"name":"Millipede", "danger":.2, "agilityModifier":.4, "energyModifier":5, "predator":false});
+var BEETLE = new Enemy({"name":"Beetle", "danger":.1, "agilityModifier":.8, "energyModifier":2, "predator":false});
+var DRAGONFLY = new Enemy({"name":"Dragonfly", "danger":.2, "agilityModifier":1.5, "energyModifier":4, "predator":false});
+var SCORPION = new Enemy({"name":"Scorpion", "danger":10, "energyModifier":.5, "predator":true});
+var BOB = new Enemy({"name":"Bob", "danger":.1, "agilityModifier":.01, "energyModifier":50, "predator":false});
+var MEGABOB = new Enemy({"name":"Megabob", "danger":100, "energyModifier":10, "predator":false});
 
-// lizards
-var LIZARD = new Enemy({"name":"Lizard", "danger":10});
-var IGUANA = new Enemy({"name":"Iguana", "danger":20, "energyModifier":1.1});
+// reptiles
+var LIZARD = new Enemy({"name":"Lizard", "danger":4, "predator":true});
+var IGUANA = new Enemy({"name":"Iguana", "danger":8, "energyModifier":1.1, "predator":false});
+var ALLIGATOR = new Enemy({"name":"Alligator", "danger":700, "predator":true});
+
+// amphibians
+var MUDFISH = new Enemy({"name":"Mudfish", "danger":50, "agilityModifier":.5, "predator":false});
+var FROG = new Enemy({"name":"Frog", "danger":25, "agilityModifier":1.1, "predator":false});
 
 // arborsaurs
-var MOMMA = new Enemy({"name":"Adult Female Arborsaur", "danger":2200, "isMomma":true});
-var J_ARBORSAUR_WEAK = new Enemy({"name":"Juvenile Arborsaur", "danger":100});
-var J_ARBORSAUR_MED = new Enemy({"name":"Juvenile Arborsaur", "danger":200});
-var J_ARBORSAUR_STRONG = new Enemy({"name":"Juvenile Arborsaur", "danger":350});
-var F_ARBORSAUR_WEAK = new Enemy({"name":"Adult Female Arborsaur", "danger":2000});
-var F_ARBORSAUR_MED = new Enemy({"name":"Adult Female Arborsaur", "danger":2200});
-var F_ARBORSAUR_STRONG = new Enemy({"name":"Adult Female Arborsaur", "danger":2700});
-var M_ARBORSAUR_WEAK = new Enemy({"name":"Adult Male Arborsaur", "danger":2300});
-var M_ARBORSAUR_MED = new Enemy({"name":"Adult Male Arborsaur", "danger":2500});
-var M_ARBORSAUR_STRONG = new Enemy({"name":"Adult Male Arborsaur", "danger":3000});
+var MOMMA = new Enemy({"name":"Adult Female Arborsaur", "danger":2200, "predator":false});
+var J_ARBORSAUR_WEAK = new Enemy({"name":"Juvenile Arborsaur", "danger":100, "predator":true});
+var J_ARBORSAUR_MED = new Enemy({"name":"Juvenile Arborsaur", "danger":200, "predator":true});
+var J_ARBORSAUR_STRONG = new Enemy({"name":"Juvenile Arborsaur", "danger":350, "predator":true});
+var F_ARBORSAUR_WEAK = new Enemy({"name":"Adult Female Arborsaur", "danger":2000, "predator":true});
+var F_ARBORSAUR_MED = new Enemy({"name":"Adult Female Arborsaur", "danger":2200, "predator":true});
+var F_ARBORSAUR_STRONG = new Enemy({"name":"Adult Female Arborsaur", "danger":2700, "predator":true});
+var M_ARBORSAUR_WEAK = new Enemy({"name":"Adult Male Arborsaur", "danger":2300, "predator":true});
+var M_ARBORSAUR_MED = new Enemy({"name":"Adult Male Arborsaur", "danger":2500, "predator":true});
+var M_ARBORSAUR_STRONG = new Enemy({"name":"Adult Male Arborsaur", "danger":3000, "predator":true});
 
 // lungs
-var J_LUNG = new Enemy({"name":"Juvenile Lung", "danger":120});
-var LUNG_WEAK = new Enemy({"name":"Adult Lung", "danger":450});
-var LUNG_MED = new Enemy({"name":"Adult Lung", "danger":500});
-var LUNG_STRONG = new Enemy({"name":"Adult Lung", "danger":670});
+var J_LUNG = new Enemy({"name":"Juvenile Lung", "danger":120, "predator":true});
+var LUNG_WEAK = new Enemy({"name":"Adult Lung", "danger":450, "predator":true});
+var LUNG_MED = new Enemy({"name":"Adult Lung", "danger":500, "predator":true});
+var LUNG_STRONG = new Enemy({"name":"Adult Lung", "danger":670, "predator":true});
+
+// wyverns
+var DAPHYLDRAKE = new Enemy({"name":"Daphyldrake", "danger":60, "agilityModifier":1.5, "predator":true});
+var WYVERN = new Enemy({"name":"Wyvern", "danger":1700, "agilityModifier":1.1, "predator":true});
+
+// birds
+var JOHNNIE = new Enemy({"name":"Johnnie", "danger":16, "energyModifier":1.3, "predator":false});
+var STEEVIE = new Enemy({"name":"Steevie", "danger":800, "agilityModifier":1.2, "energyModifier":1.1, "predator":false});
+var SNIPEY = new Enemy({"name":"Snipey", "danger":80, "agilityModifier":1.1, "predator":false});
+
+// large herbivores
+var AVALON = new Enemy({"name":"Avalon", "danger":550, "predator":false});
+var BEHEMOTH = new Enemy({"name":"Behemoth", "danger":1920, "predator":false});
+var TUSKER = new Enemy({"name":"Tusker", "danger":2790, "predator":true});
+var ATLAS = new Enemy({"name":"Atlas", "danger":6000, "predator":false});   // good luck killing this thing
+var DIPLO = new Enemy({"name":"Diplo", "danger":100000, "predator":false});    // hah
+
+// large carnivores
+var DREAD = new Enemy({"name":"Dread", "danger":450, "agilityModifier":1.1, "predator":true});
+var DREWSARK = new Enemy({"name":"Drewsark", "danger":800, "energyModifier":.8, "predator":true});
+var YIPYIP = new Enemy({"name":"Yipyip", "danger":1067, "predator":true});
 
 // biome enemy generation
-var FORESTEASY_GENERATOR = [{"enemy":BEETLE, "probability":50}, {"enemy":DRAGONFLY, "probability":50}, {"enemy":MILLIPEDE, "probability":50}, {"enemy":SCORPION, "probability":300}];
+var FORESTEASY_GENERATOR = [{"enemy":BEETLE, "probability":35}, {"enemy":DRAGONFLY, "probability":20}, 
+    {"enemy":MILLIPEDE, "probability":40}, {"enemy":LIZARD, "probability":15}, {"enemy":JOHNNIE, "probability":10}, 
+    {"enemy":J_LUNG, "probability":5}, {"enemy":LUNG_WEAK, "probability":2}, {"enemy":LUNG_MED, "probability":1}, 
+    {"enemy":J_ARBORSAUR_WEAK, "probability":2}, {"enemy":J_ARBORSAUR_MED, "probability":1}, {"enemy":F_ARBORSAUR_MED, "probability":1}];
 var FORESTMED_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 var FORESTHARD_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 var PLAINSEASY_GENERATOR = [{"enemy":BEETLE, "probability":50}];
@@ -154,6 +213,8 @@ var EGGNEST_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 var OTHERNEST_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 
 var pb = new ParagraphBuffer();
+
+var enableUI = true;
 
 // egg nest egg count. Start at 3.
 var eggsSouthCount = 3;
@@ -177,7 +238,7 @@ var starveRate = STARVEMED;
 var healRate = HEALMED;
 
 // weight
-var currentWeight = 3;
+var currentWeight = 1.5;
 // energy
 var currentEnergy = 100;
 // health
@@ -185,6 +246,9 @@ var currentHealth = 100;
 
 // player's current location
 var currentLocation = new PlayerLocation();
+
+// times the player has stayed in the same location
+var idleTime = 0;
 
 // current enemies
 var enemy1;
@@ -218,15 +282,13 @@ function Enemy(info) {
     if(info["agilityModifier"]) {
         this.agilityModifier = info["agilityModifier"];
     }
-    else {
-        console.log("Warning: No agility modifier (Enemy)");
-    }
     
     if(info["energyModifier"]) {
         this.energyModifier = info["energyModifier"];
     }
-    else {
-        console.log("Warning: No energy modifier (Enemy)");
+    
+    if(info["predator"]) {
+        this.aggressive = info["predator"];
     }
 }
 
@@ -257,6 +319,14 @@ function validatePosition(index, row) {
     }
     console.log("Valid position");
     return true;    //valid!
+}
+
+
+function drown(location) {
+    if(currentLevel < 3 && location.biome === RIVER) {
+        return true;
+    }
+    return false;
 }
 
 /*
@@ -331,11 +401,22 @@ function move(direction) {
        // biome
        currentLocation.biome = MAP[newLocation.row][newLocation.index];
        
+       // did player idle
+       if(currentLocation.index === newLocation.index && currentLocation.row === newLocation.row) {
+           idleTime++;
+       }
+       
        // generate enemies
-        generateEnemies(currentLocation.row, currentLocation.index);
+       generateEnemies(currentLocation.row, currentLocation.index);
        
        // starve and heal on valid move
-       starve();
+       if(direction === WAIT) {
+           starve(true);
+       }
+       else {
+          starve(false); 
+       }
+       
        heal();
    }
       
@@ -367,7 +448,7 @@ function attack(enemy) {
     
     // gain energy and grow
     currentEnergy = currentEnergy + energy;
-    currentWeight = currentWeight + energy/3;
+    currentWeight = currentWeight + energy/50;
     
     if(currentEnergy > 100) {
         currentEnergy = 100;
@@ -376,10 +457,7 @@ function attack(enemy) {
     writeAttack(enemy, damage);
     
     console.log("Attacked " + enemy.name + ". Health: " + currentHealth + " Energy: " + currentEnergy + "Size: " + currentWeight + " (attack)");
-    
-    // dead?
-    checkGameOver(currentEnergy, currentHealth);
-    
+
 }
 
 /*
@@ -399,12 +477,16 @@ function mate() {
  * 
  * @returns {Boolean}
  */
-function starve() {
-    currentEnergy = currentEnergy - metabolismEnergy;
+function starve(waited) {
+    if(waited === false) {
+        currentEnergy = currentEnergy - metabolismEnergy;
+    }
+    if(waited === true) {
+        currentEnergy = currentEnergy - metabolismEnergy/2;
+    }
     
     console.log("You starve a little. Current energy at: " + currentEnergy + " (starve)");
     
-    checkGameOver(currentEnergy, currentHealth);
     return false;
 }
 
@@ -416,6 +498,9 @@ function starve() {
 function heal() {
     if(currentHealth < MAXHEALTH) {
         currentHealth = currentHealth + metabolismHealth;
+    }
+    if(currentHealth > 100) {
+        currentHealth = 100;
     }
 }
 
@@ -486,7 +571,7 @@ function calculateEnemyDamage(enemy) {
     var damage = enemy.danger/currentWeight * 100;
     
     // player can attack safely if enemy is significantly smaller
-    if(enemy.danger < currentWeight/5) {
+    if(enemy.danger < currentWeight/2) {
         return 0;
     }
     
@@ -499,13 +584,106 @@ function calculateEnemyDamage(enemy) {
  * Will the enemy pounce?
  * Only happens after "wait" command and if the enemy is larger than the player.
  * 
+ * Keep an enemy in the display if it is much stronger than the player. Each 
+ * idle action the user makes runs a random function testing to see if the 
+ * enemy will pounce.
+ * 
  * @param {type} enemy
  * @returns {Boolean}
  */
-function enemyPounce(enemy) {
-    var aggression = (1 - currentWeight/enemy.danger) * 100;
+function isEnemyPounce(enemy) {
+    var aggression = calculateEnemyDamage(enemy);
     
-    if(enemy.danger > currentWeight && getRandomNum(0, 100) < aggression) { // TODO: any problems when in same location after eating?
+    if(aggression > 200) {
+        aggression = 100;
+    }
+    else if(aggression <= 0) {
+        return false;
+    }
+    
+    // do not pounce on first move to a location
+    if(idleTime === 0) {
+        return false;
+    }
+    
+    // will the enemy pounce?
+    if(getRandomNum(0,100)-idleTime*2 < aggression/2 && enemy.aggressive === true) {
+        console.log("Enemy " + enemy.name + " pounced.");
+        // was it successful?
+        if(getRandomNum(0, 100) < 100*(currentWeight/enemy.danger)) {
+            // TODO: player fled string
+            console.log("Enemy has attacked.");
+            return true;
+        }
+        console.log("Enemy attempted to pounce but missed.");
+    }
+    
+    // did not pounce
+    return false;
+}
+
+/**
+ * 
+ * @param {type} enemy
+ * @returns {undefined}
+ */
+function pounce(enemy) {
+    var enemyPounced = isEnemyPounce(enemy);
+    
+    if(enemyPounced) {
+        console.log("Perform pounce attack calculations.");
+        
+        // TODO: pounce string
+        var energy = calculateEnemyEnergy(enemy);
+        var damage = calculateEnemyDamage(enemy);
+
+        // incur damage on player during attack
+        currentHealth = currentHealth - damage;
+
+        if(currentEnergy > 100) {
+            currentEnergy = 100;
+        }
+        
+        return true;
+        // TODO: unique attack phrase
+    }
+    return false;
+}
+
+function pounceAll() {
+    var pounced = false;
+    
+    if(idleTime <= 0) {
+        return;
+    }
+    
+    var enemyList = Array();
+    
+    if(enemy1) {
+        enemyList.push(enemy1);
+    }
+    if(enemy2) {
+        enemyList.push(enemy2);
+    }
+    if(enemy3) {
+        enemyList.push(enemy3);
+    }
+    if(enemy4) {
+        enemyList.push(enemy4);
+    }
+    
+    for(var i = 0; i < enemyList.length; i++) {
+        if(enemyList[i]) {
+            pounced = pounce(enemyList[i]);
+            if(pounced) {
+                writePounceResult(enemyList[i], pounced);
+                break;
+            }
+        }
+    }
+    
+    if(currentHealth <= 0) {
+        gameOver(POUNCE);
         return true;
     }
     
@@ -614,17 +792,17 @@ function generateEnemies(row, index) {  // TODO: maybe turn this into switch ins
     var enemiesToDisplay = Array();
     
     if(MAP[row][index] === FORESTEASY) {
-        enemiesToDisplay = generateEnemiesHelper(40, FORESTEASY_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(75, FORESTEASY_GENERATOR);
     }
     else if(MAP[row][index] === FORESTMED) {
-        enemiesToDisplay = generateEnemiesHelper(50, FORESTMED_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(80, FORESTMED_GENERATOR);
         displayEnemies(enemiesToDisplay);
     }
     else if(MAP[row][index] === FORESTHARD) {
-        enemiesToDisplay = generateEnemiesHelper(50, FORESTHARD_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(90, FORESTHARD_GENERATOR);
     }
     else if(MAP[row][index] === PLAINSEASY) {
-        enemiesToDisplay = generateEnemiesHelper(60, PLAINSEASY_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(75, PLAINSEASY_GENERATOR);
     }
     else if(MAP[row][index] === PLAINSHARD) {
         enemiesToDisplay = generateEnemiesHelper(90, PLAINSHARD_GENERATOR);
@@ -634,19 +812,19 @@ function generateEnemies(row, index) {  // TODO: maybe turn this into switch ins
         enemiesToDisplay = generateEnemiesHelper(100, RIVER_GENERATOR);
     }
     else if(MAP[row][index] === SWAMPEASY) {
-        enemiesToDisplay = generateEnemiesHelper(20, SWAMPEASY_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(70, SWAMPEASY_GENERATOR);
     }
     else if(MAP[row][index] === SWAMPHARD) {
-        enemiesToDisplay = generateEnemiesHelper(40, SWAMPHARD_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(90, SWAMPHARD_GENERATOR);
     }
     else if(MAP[row][index] === WASTES) {
-        enemiesToDisplay = generateEnemiesHelper(80, WASTES_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(95, WASTES_GENERATOR);
     }
     else if(MAP[row][index] === HOME) {
-        enemiesToDisplay = generateEnemiesHelper(70, HOME_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(80, HOME_GENERATOR);
     }
     else if(MAP[row][index] === EGGNEST) {
-        enemiesToDisplay = generateEnemiesHelper(70, EGGNEST_GENERATOR);
+        enemiesToDisplay = generateEnemiesHelper(80, EGGNEST_GENERATOR);
     }
     else if(MAP[row][index] === OTHERNEST) {
         enemiesToDisplay = generateEnemiesHelper(90, OTHERNEST_GENERATOR);
@@ -671,13 +849,12 @@ function generateEnemies(row, index) {  // TODO: maybe turn this into switch ins
 }
 
 /*
- * MAKE SURE MOMMA IS GONE AFTER LEVEL 1 TO PREVENT THIS FROM BEING CREEPY
  * 
  * @param {type} enemy
  * @returns {Boolean}
  */
 function isMateable(enemy) {
-    if(enemy.name === "Adult Female Arborsaur") {
+    if(enemy.name === "Adult Female Arborsaur" && enemy !== MOMMA) {
         return true;
     }
     return false;
@@ -685,14 +862,22 @@ function isMateable(enemy) {
 
 function checkGameOver(energy, health) {
     if(energy <= 0) {
-        gameOver(false);
-        return true;
+        gameOver(STARVED);
+        return STARVED;
     }
     
     if(health <= 0) {
-        gameOver(false);
-        return true;
+        gameOver(ATTACKED);
+        return ATTACKED;
     }
+    
+    if(drown(currentLocation)) {
+        gameOver(DROWNED);
+        return DROWNED;
+    }
+    
+    // did not game over
+    return NOT_DIE;
 }
 
 /*
@@ -702,17 +887,35 @@ function checkGameOver(energy, health) {
  * @param {type} wonGame
  * @returns {undefined}
  */
-function gameOver(wonGame) {
-    if(wonGame === true) {
-        alert("You win!");
-    }
-    else {
-        alert("loss");
-        displayGameOverLose();
+function gameOver(deathType) {    
+    // lock UI
+    lockUI();
+    
+    displayHealth(0);
+    displayEnergy(0);
+    
+    // clear enemies
+    var emptyArray = Array();
+    displayEnemies(emptyArray);
+    
+    if(deathType !== POUNCE) {
+        writeGameOver(deathType);
     }
 }
 
 /***** UI Stuff *****/
+
+/*
+ * For game over scenarios.
+ * 
+ * @returns {undefined}
+ */
+function lockUI() {
+    enableUI = false;
+    $(".direction").hover(function() {
+        $(this).css("color", "black");
+    });
+}
 
 function moveMapMarker(newRow, newIndex) {
     console.log("Moving display to here: " + newIndex + ", " + newRow + " (moveMapMarker)");
@@ -778,6 +981,15 @@ function changeLocationColor(row, index) {
     $("#minimaptable td").eq(coords).css("background-color", newColor);
 }
 
+function displayEnemyMateButton(location, enemy) {
+    if(isMateable(enemy)) {
+        $(location + ">.mate").css("display", "inline-block");
+    }
+    else {
+        $(location + ">.mate").css("display", "none");
+    }
+}
+
 /*
  * Set an enemy's info (name, bars) in the gui.
  * 
@@ -793,14 +1005,15 @@ function displayEnemyBars(location, enemy) {
     console.log("Sizebar percentage: " + dangerPercent + " (displayEnemyBars)");
     
     // sizebar color
-    if(dangerPercent <= LOWPERCENT) {
-        $(location + ">.stats>.enemysize>.sizebar").css("background-color", "lime");
-    }
-    else if(currentHealth - dangerPercent <= 0) {
+
+    if(currentHealth - dangerPercent <= 0) {
         $(location + ">.stats>.enemysize>.sizebar").css("background-color", "red");
     }
-    else {
+    else if(dangerPercent > 10) {
         $(location + ">.stats>.enemysize>.sizebar").css("background-color", "yellow");
+    }
+    else {
+        $(location + ">.stats>.enemysize>.sizebar").css("background-color", "lime");
     }
     
     console.log("Agility percentage: " + agilityPercent + " (displayEnemyBars)");
@@ -829,7 +1042,7 @@ function displayEnemyBars(location, enemy) {
     var energyLocation = location + ">.stats>.enemyenergy>.energybar";
     
     
-    
+    displayEnemyMateButton(location, enemy);
     $(nameLocation).html(enemy.name);
     $(dangerLocation).css("width", dangerPercent);
     $(agilityLocation).css("width", agilityPercent);
@@ -849,8 +1062,10 @@ function displayEnemies(enemies) {
     }
     
     var toDisplay = Array();
+    // needed to match to the global variable
     var enemyCounter = 1;
 
+    // if enemy exists, get enemy information from global variable
     for(var i = 0; i < 4; i++) {
         var enemyVar = "enemy" + (enemyCounter);
         if(enemies[i]) {
@@ -929,12 +1144,6 @@ function displayCurrentPlayerInfo() {
     displayHealth(currentHealth);
 }
 
-function displayGameOverLose() {
-    $("#locationdesc").html("You died.");
-    $("#energy").html("DEAD");
-    $("#health").html("DEAD");
-}
-
 $(document).ready(function() { 
     
     // display home
@@ -948,17 +1157,31 @@ $(document).ready(function() {
      * Compass click
      */
     $(".direction").click(function() {
-        console.log("Compass click: " + this.id);
-        var newPos = move(this.id);
-        moveMapMarker(currentLocation.row, currentLocation.index);
-        
-        // Prints a description to top div
-        createDescription();
-        
-        checkGameOver();
-        
-        displayCurrentPlayerInfo();
-        pb.flushBuffer();
+        if(enableUI === true) {
+            
+            var pounceDeath = false;
+
+            if(this.id === WAIT) {
+                pounceDeath = pounceAll();
+            }
+            else {
+                idleTime = 0;
+            }
+            
+            console.log("Compass click: " + this.id);
+            var newPos = move(this.id);
+            moveMapMarker(currentLocation.row, currentLocation.index);
+
+            // Prints a description to top div
+            createDescription();
+            displayCurrentPlayerInfo();
+
+            if(!pounceDeath) {
+                checkGameOver(currentEnergy, currentHealth);
+            }
+            
+            pb.flushBuffer();
+        }
     });
     
     /*
@@ -973,12 +1196,19 @@ $(document).ready(function() {
         // TODO: make it so some enemies remain?
         var lastEnemy = window[this.parentNode.parentNode.id];
         
+        var pounceDeath = false;
+        pounceDeath = pounceAll();
+        idleTime++;
+        
         generateEnemies(currentLocation.row, currentLocation.index);
         writeReloadDescription(lastEnemy);
-        
-        checkGameOver();
-        
+
         displayCurrentPlayerInfo();
+        
+        if(!pounceDeath) {
+            checkGameOver(currentEnergy, currentHealth);
+        }
+    
         pb.flushBuffer();
     });
     
@@ -996,20 +1226,9 @@ $(document).ready(function() {
         console.log("Infosheet");
     });
     
-    $(document).keypress(function(e) {
-    if(e.keyCode === 38) {
-        console.log("Keypress: up");
-    }
-    if(e.keyCode === 40) {
-        console.log("Keypress: down");
-    }
-    if(e.keyCode === 37) {
-        console.log("Keypress: left");
-    }
-    if(e.keyCode === 39) {
-        console.log("Keypress: right");
-    }
-});
+    $("#restartgame").click(function() {
+        location.reload();
+    });
     
 });
 
@@ -1040,6 +1259,12 @@ function ParagraphBuffer() {
     this.writeBuffer = function writeBuffer(newString) {
         console.log("Wrote to buffer: " + newString + " (ParagraphBuffer.writeBuffer)");
         this.cache.push(newString);
+    };
+    
+    // clears the buffer of all contents
+    this.clear = function clear() {
+        console.log("Buffer cleared. Here's what it said: " + this.cache);
+        this.cache.length = 0;
     };
 }
 
@@ -1267,6 +1492,47 @@ function writeAttack(enemy, damage) {
     }
     
     pb.writeBuffer(attackMessage);
+}
+
+function writeGameOver(deathType) {
+    var desc = "";
+    
+    if(deathType === STARVED) {
+        desc = STARVED_DESC;
+    }
+    else if(deathType === DROWNED) {
+        desc = DROWNED_DESC;
+    }
+    else if(deathType === ATTACKED) {
+        desc = ATTACKED_DESC;
+    }
+    else if(deathType === POUNCE) {
+        // Needed?
+    }
+    
+    pb.clear();
+    pb.writeBuffer(desc);
+    pb.writeBuffer(" " + GAME_OVER);
+}
+
+function writePounceResult(enemy, pounceSuccess) {
+    var desc = "A " + enemy.name.toLowerCase() + " pounces";
+    
+    if(pounceSuccess) {
+        if(currentHealth <= 0) {
+            console.log("Pounce: player killed. Writing message now.");
+            desc = desc + " and kills you.";
+            pb.clear();
+            pb.writeBuffer(desc);
+            pb.writeBuffer(" " + GAME_OVER);
+        }
+        else {
+            desc = desc + " and manages to injure you, but you manage to escape.";
+        }
+    }
+    else {
+        desc = desc + " but you manage to escape unharmed.";
+    }
 }
 /***** Tests *****/
 

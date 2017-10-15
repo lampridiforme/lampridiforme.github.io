@@ -130,7 +130,7 @@ li:before {
     background-color: #e4cda2;
 }
 
-.rate, .totalcount {
+.rate, .totalcount, .lifetime {
     margin-top: 15px;
 }
 
