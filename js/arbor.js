@@ -27,8 +27,8 @@ var POUNCE = 3;
 
 // game over strings
 var GAME_OVER = "GAME OVER.";
-var ATTACKED_DESC = "Your injuries are too great and you succumb to them.";
-var DROWNED_DESC = "You attempt to wade through the river, but the currents are too swift for you. You drown in the waves.";
+var ATTACKED_DESC = "You attempt to attack, but the enemy is too strong and kills you.";
+var DROWNED_DESC = "You attempt to wade through the river, but the currents are too swift for you. You drown.";
 var STARVED_DESC = "You have starved to death.";
 
 // biomes
@@ -117,90 +117,73 @@ var MAP = [
     [FORESTEASY, FORESTEASY, FORESTEASY, FORESTEASY, FORESTEASY, FORESTEASY, FORESTEASY, EGGNEST, FORESTEASY, RIVER, FORESTHARD, FORESTHARD, FORESTHARD, FORESTHARD]
 ];
 
-// enemy descriptions
-// NOTE: these are vars because apparently vars aren't globally scoped???
-// TODO: when I get to refactoring turn these into enemy parameters
-// insect desc
-var MILLIPEDE_DESC = "a millipede crawling in the dirt";
-var BEETLE_DESC = "a beetle";
-var DRAGONFLY_DESC = "a perched dragonfly";
-var SCORPION_DESC = "a scorpion hiding under a rock";
-var BOB_DESC = "a snail named Bob";
-var MEGABOB_DESC = "a very large snail named Bob";
-
-// reptile desc
-var LIZARD_DESC = "a lizard warming itself in the sun";
-var IGUANA_DESC = "an iguana on a branch";
-var ALLIGATOR_DESC = "a gaping alligator";
-
-// amphibian desc
-var MUDFISH_DESC = "a floundering mudfish";
-var FROG_DESC = "a frog";
-
 // enemies
 // format: new Enemy({"name":"", "danger":});
 // insects
-var MILLIPEDE = new Enemy({"name":"Millipede", "danger":.2, "agilityModifier":.4, "energyModifier":5, "predator":false});
-var BEETLE = new Enemy({"name":"Beetle", "danger":.1, "agilityModifier":.8, "energyModifier":2, "predator":false});
-var DRAGONFLY = new Enemy({"name":"Dragonfly", "danger":.2, "agilityModifier":1.5, "energyModifier":4, "predator":false});
-var SCORPION = new Enemy({"name":"Scorpion", "danger":10, "energyModifier":.5, "predator":true});
-var BOB = new Enemy({"name":"Bob", "danger":.1, "agilityModifier":.01, "energyModifier":50, "predator":false});
-var MEGABOB = new Enemy({"name":"Megabob", "danger":100, "energyModifier":10, "predator":false});
+var MILLIPEDE = new Enemy({"name":"Millipede", "danger":.2, "agilityModifier":.4, "energyModifier":4, "predator":false, "description":"a millipede crawling in the dirt"});
+var BEETLE = new Enemy({"name":"Beetle", "danger":.1, "agilityModifier":.8, "energyModifier":1.5, "predator":false, "description":"a beetle"});
+var DRAGONFLY = new Enemy({"name":"Dragonfly", "danger":.2, "agilityModifier":1.5, "energyModifier":3, "predator":false, "description":"a perched dragonfly"});
+var SCORPION = new Enemy({"name":"Scorpion", "danger":10, "energyModifier":.5, "predator":true, "description":"a scorpion hiding under a rock"});
+var BOB = new Enemy({"name":"Bob", "danger":.1, "agilityModifier":.01, "energyModifier":50, "predator":false, "description":"a snail named Bob"});
+var MEGABOB = new Enemy({"name":"Megabob", "danger":100, "energyModifier":10, "predator":false, "description":"a very large snail named Bob"});
 
 // reptiles
-var LIZARD = new Enemy({"name":"Lizard", "danger":4, "predator":true});
-var IGUANA = new Enemy({"name":"Iguana", "danger":8, "energyModifier":1.1, "predator":false});
-var ALLIGATOR = new Enemy({"name":"Alligator", "danger":700, "predator":true});
+var LIZARD = new Enemy({"name":"Lizard", "danger":4, "predator":true, "description":"a lizard warming itself in the sun"});
+var IGUANA = new Enemy({"name":"Iguana", "danger":8, "energyModifier":1.1, "predator":false, "description":"an iguana on a branch"});
+var ALLIGATOR = new Enemy({"name":"Alligator", "danger":700, "predator":true, "description":"a gaping alligator"});
 
 // amphibians
-var MUDFISH = new Enemy({"name":"Mudfish", "danger":50, "agilityModifier":.5, "predator":false});
-var FROG = new Enemy({"name":"Frog", "danger":25, "agilityModifier":1.1, "predator":false});
+var MUDFISH = new Enemy({"name":"Mudfish", "danger":50, "agilityModifier":.5, "predator":false, "description":"a mudfish"});
+var FROG = new Enemy({"name":"Frog", "danger":25, "agilityModifier":1.1, "predator":false, "description":"a frog"});
 
 // arborsaurs
-var MOMMA = new Enemy({"name":"Adult Female Arborsaur", "danger":2200, "predator":false});
-var J_ARBORSAUR_WEAK = new Enemy({"name":"Juvenile Arborsaur", "danger":100, "predator":true});
-var J_ARBORSAUR_MED = new Enemy({"name":"Juvenile Arborsaur", "danger":200, "predator":true});
-var J_ARBORSAUR_STRONG = new Enemy({"name":"Juvenile Arborsaur", "danger":350, "predator":true});
-var F_ARBORSAUR_WEAK = new Enemy({"name":"Adult Female Arborsaur", "danger":2000, "predator":true});
-var F_ARBORSAUR_MED = new Enemy({"name":"Adult Female Arborsaur", "danger":2200, "predator":true});
-var F_ARBORSAUR_STRONG = new Enemy({"name":"Adult Female Arborsaur", "danger":2700, "predator":true});
-var M_ARBORSAUR_WEAK = new Enemy({"name":"Adult Male Arborsaur", "danger":2300, "predator":true});
-var M_ARBORSAUR_MED = new Enemy({"name":"Adult Male Arborsaur", "danger":2500, "predator":true});
-var M_ARBORSAUR_STRONG = new Enemy({"name":"Adult Male Arborsaur", "danger":3000, "predator":true});
+var MOMMA = new Enemy({"name":"Adult Female Arborsaur", "danger":2200, "predator":false, "description":"a female arborsaur"});
+var J_ARBORSAUR_WEAK = new Enemy({"name":"Juvenile Arborsaur", "danger":100, "predator":true, "description":"a juvenile arborsaur"});
+var J_ARBORSAUR_MED = new Enemy({"name":"Juvenile Arborsaur", "danger":200, "predator":true, "description":"a juvenile arborsaur"});
+var J_ARBORSAUR_STRONG = new Enemy({"name":"Juvenile Arborsaur", "danger":350, "predator":true, "description":"a juvenile arborsaur"});
+var F_ARBORSAUR_WEAK = new Enemy({"name":"Adult Female Arborsaur", "danger":2000, "predator":true, "description":"a female arborsaur"});
+var F_ARBORSAUR_MED = new Enemy({"name":"Adult Female Arborsaur", "danger":2200, "predator":true, "description":"a female arborsaur"});
+var F_ARBORSAUR_STRONG = new Enemy({"name":"Adult Female Arborsaur", "danger":2700, "predator":true, "description":"a female arborsaur"});
+var M_ARBORSAUR_WEAK = new Enemy({"name":"Adult Male Arborsaur", "danger":2300, "predator":true, "description":"a male arborsaur"});
+var M_ARBORSAUR_MED = new Enemy({"name":"Adult Male Arborsaur", "danger":2500, "predator":true, "description":"a male arborsaur"});
+var M_ARBORSAUR_STRONG = new Enemy({"name":"Adult Male Arborsaur", "danger":3000, "predator":true, "description":"a male arborsaur"});
 
 // lungs
-var J_LUNG = new Enemy({"name":"Juvenile Lung", "danger":120, "predator":true});
-var LUNG_WEAK = new Enemy({"name":"Adult Lung", "danger":450, "predator":true});
-var LUNG_MED = new Enemy({"name":"Adult Lung", "danger":500, "predator":true});
-var LUNG_STRONG = new Enemy({"name":"Adult Lung", "danger":670, "predator":true});
+var J_LUNG = new Enemy({"name":"Juvenile Lung", "danger":120, "predator":true, "description":"a juvenile lung"});
+var LUNG_WEAK = new Enemy({"name":"Adult Lung", "danger":450, "predator":true, "description":"an adult lung"});
+var LUNG_MED = new Enemy({"name":"Adult Lung", "danger":500, "predator":true, "description":"an adult lung"});
+var LUNG_STRONG = new Enemy({"name":"Adult Lung", "danger":670, "predator":true, "description":"an adult lung"});
 
 // wyverns
-var DAPHYLDRAKE = new Enemy({"name":"Daphyldrake", "danger":60, "agilityModifier":1.5, "predator":true});
-var WYVERN = new Enemy({"name":"Wyvern", "danger":1700, "agilityModifier":1.1, "predator":true});
+var DAPHYLDRAKE = new Enemy({"name":"Daphyldrake", "danger":60, "agilityModifier":1.5, "predator":true, "description":"a daphyldrake resting on the ground"});
+var WYVERN = new Enemy({"name":"Wyvern", "danger":1700, "agilityModifier":1.1, "predator":true, "description":"a wyvern picking at a rancid carcass"});
 
 // birds
-var JOHNNIE = new Enemy({"name":"Johnnie", "danger":16, "energyModifier":1.3, "predator":false});
-var STEEVIE = new Enemy({"name":"Steevie", "danger":800, "agilityModifier":1.2, "energyModifier":1.1, "predator":false});
-var SNIPEY = new Enemy({"name":"Snipey", "danger":80, "agilityModifier":1.1, "predator":false});
+var JOHNNIE = new Enemy({"name":"Johnnie", "danger":16, "energyModifier":1.3, "predator":false, "description":"a johnnie looking at you nervously"});
+var STEEVIE = new Enemy({"name":"Steevie", "danger":800, "agilityModifier":1.2, "energyModifier":1.1, "predator":false, "description":"a steevie scratching at the dirt"});
+var SNIPEY = new Enemy({"name":"Snipey", "danger":80, "agilityModifier":1.1, "predator":false, "description":"a snipey standing in the reeds"});
 
 // large herbivores
-var AVALON = new Enemy({"name":"Avalon", "danger":550, "predator":false});
-var BEHEMOTH = new Enemy({"name":"Behemoth", "danger":1920, "predator":false});
-var TUSKER = new Enemy({"name":"Tusker", "danger":2790, "predator":true});
-var ATLAS = new Enemy({"name":"Atlas", "danger":6000, "predator":false});   // good luck killing this thing
-var DIPLO = new Enemy({"name":"Diplo", "danger":100000, "predator":false});    // hah
+var AVALON = new Enemy({"name":"Avalon", "danger":550, "predator":false, "description":"an avalon"});
+var BEHEMOTH = new Enemy({"name":"Behemoth", "danger":1920, "predator":false, "description":"a behemoth"});
+var TUSKER = new Enemy({"name":"Tusker", "danger":2790, "predator":true, "description":"a grazing tusker"});
+var ATLAS = new Enemy({"name":"Atlas", "danger":6000, "predator":false, "description":"an atlas"});   // good luck killing this thing
+var DIPLO = new Enemy({"name":"Diplo", "danger":100000, "predator":false, "description":"a diplo"});    // hah
 
 // large carnivores
-var DREAD = new Enemy({"name":"Dread", "danger":450, "agilityModifier":1.1, "predator":true});
-var DREWSARK = new Enemy({"name":"Drewsark", "danger":800, "energyModifier":.8, "predator":true});
-var YIPYIP = new Enemy({"name":"Yipyip", "danger":1067, "predator":true});
+var DREAD = new Enemy({"name":"Dread", "danger":450, "agilityModifier":1.1, "predator":true, "description":"a dread sharpening it's claws"});
+var DREWSARK = new Enemy({"name":"Drewsark", "danger":800, "energyModifier":.8, "predator":true, "description":"a laughing drewsark"});
+var YIPYIP = new Enemy({"name":"Yipyip", "danger":1067, "predator":true, "description":"a yipyip staring at you"});
 
 // biome enemy generation
 var FORESTEASY_GENERATOR = [{"enemy":BEETLE, "probability":35}, {"enemy":DRAGONFLY, "probability":20}, 
     {"enemy":MILLIPEDE, "probability":40}, {"enemy":LIZARD, "probability":15}, {"enemy":JOHNNIE, "probability":10}, 
     {"enemy":J_LUNG, "probability":5}, {"enemy":LUNG_WEAK, "probability":2}, {"enemy":LUNG_MED, "probability":1}, 
     {"enemy":J_ARBORSAUR_WEAK, "probability":2}, {"enemy":J_ARBORSAUR_MED, "probability":1}, {"enemy":F_ARBORSAUR_MED, "probability":1}];
-var FORESTMED_GENERATOR = [{"enemy":BEETLE, "probability":50}];
+var FORESTMED_GENERATOR = [{"enemy":IGUANA, "probability":10}, {"enemy":SCORPION, "probability":9}, 
+    {"enemy":MILLIPEDE, "probability":2}, {"enemy":LIZARD, "probability":15}, {"enemy":JOHNNIE, "probability":28}, 
+    {"enemy":J_LUNG, "probability":8}, {"enemy":LUNG_MED, "probability":7}, {"enemy":LUNG_STRONG, "probability":5}, 
+    {"enemy":J_ARBORSAUR_WEAK, "probability":2}, {"enemy":J_ARBORSAUR_STRONG, "probability":7}, {"enemy":F_ARBORSAUR_MED, "probability":6}];
 var FORESTHARD_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 var PLAINSEASY_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 var PLAINSHARD_GENERATOR = [{"enemy":BEETLE, "probability":50}];
@@ -209,8 +192,8 @@ var SWAMPEASY_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 var SWAMPHARD_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 var WASTES_GENERATOR = [{"enemy":BEETLE, "probability":50}];
 var HOME_GENERATOR = [{"enemy":BEETLE, "probability":50}];
-var EGGNEST_GENERATOR = [{"enemy":BEETLE, "probability":50}];
-var OTHERNEST_GENERATOR = [{"enemy":BEETLE, "probability":50}];
+var EGGNEST_GENERATOR = [{"enemy":J_LUNG, "probability":50}, {"enemy":LUNG_STRONG, "probability":50}, {"enemy":LUNG_MED, "probability":30}, {"enemy":LIZARD, "probability":10}];
+var OTHERNEST_GENERATOR = [];
 
 var pb = new ParagraphBuffer();
 
@@ -259,6 +242,14 @@ var enemy4;
 /***** Objects *****/
 
 /*
+ * Use an info array to initialize the enemy. 
+ * info array:
+ * - name: name of enemy, capitalized first letter (eg. Beetle)
+ * - danger: how dangerous the enemy is
+ * - agilityModifier: modifies the agility by a multiplier
+ * - energyModifier: modifies the energy by a multiplier
+ * - aggressive: checks if the enemy will pounce or not 
+ * - desciption: description that will be printed out in the "You see..." string
  * 
  * @param {type} info
  * @returns {Enemy}
@@ -287,8 +278,13 @@ function Enemy(info) {
         this.energyModifier = info["energyModifier"];
     }
     
+    // TODO: fix this so it says aggressive instead
     if(info["predator"]) {
         this.aggressive = info["predator"];
+    }
+    
+    if(info["description"]) {
+        this.description = info["description"];
     }
 }
 
@@ -448,7 +444,7 @@ function attack(enemy) {
     
     // gain energy and grow
     currentEnergy = currentEnergy + energy;
-    currentWeight = currentWeight + energy/50;
+    currentWeight = currentWeight + energy/10;
     
     if(currentEnergy > 100) {
         currentEnergy = 100;
@@ -461,7 +457,7 @@ function attack(enemy) {
 }
 
 /*
- * 
+ * TODO: come back to this
  * @returns {Boolean}
  */
 function mate() {
@@ -515,6 +511,37 @@ function grow(energy) {
     if(currentWeight < metabolismLevelCap) {
         currentWeight = currentWeight + energy;
     }
+}
+
+/*
+ * Eat an egg if there is one. If there are no more eggs, no eating is allowed.
+ * Returns true if player successfully ate an egg.
+ * 
+ * @param {type} location
+ * @returns {Boolean}
+ */
+function eatEgg(location) {
+    // decrement egg count in respective nest
+    if(location.row === 4 && location.index === 0 && location.biome === EGGNEST) {
+        if(eggsNorthCount === 0) {
+            return false;
+        }
+        eggsNorthCount = eggsNorthCount - 1;
+    }
+    else if(location.row === 13 && location.index === 7 && location.biome === EGGNEST) {
+        if(eggsSouthCount === 0) {
+            return false;
+        }
+        eggsSouthCount = eggsSouthCount - 1;
+    }
+    else {
+        console.log("Not in an egg nest, how was this called? (eatEgg)");
+    }
+    
+    // The player is now full
+    currentEnergy = 100;
+    
+    return true;
 }
 
 /*
@@ -607,15 +634,15 @@ function isEnemyPounce(enemy) {
     }
     
     // will the enemy pounce?
-    if(getRandomNum(0,100)-idleTime*2 < aggression/2 && enemy.aggressive === true) {
+    if(getRandomNum(0,100)-idleTime*2 < aggression/5 && enemy.aggressive === true) {
         console.log("Enemy " + enemy.name + " pounced.");
         // was it successful?
-        if(getRandomNum(0, 100) < 100*(currentWeight/enemy.danger)) {
+        //if(getRandomNum(0, 100) < 100*(currentWeight/enemy.danger)) {
             // TODO: player fled string
             console.log("Enemy has attacked.");
             return true;
-        }
-        console.log("Enemy attempted to pounce but missed.");
+        //}
+        //console.log("Enemy attempted to pounce but missed.");
     }
     
     // did not pounce
@@ -634,8 +661,9 @@ function pounce(enemy) {
         console.log("Perform pounce attack calculations.");
         
         // TODO: pounce string
-        var energy = calculateEnemyEnergy(enemy);
         var damage = calculateEnemyDamage(enemy);
+
+        console.log("The enemy has pounced and did " + damage + " damage (pounce)");
 
         // incur damage on player during attack
         currentHealth = currentHealth - damage;
@@ -682,7 +710,7 @@ function pounceAll() {
         }
     }
     
-    if(currentHealth <= 0) {
+    if(currentHealth <= 0 && pounced === true) {
         gameOver(POUNCE);
         return true;
     }
@@ -915,6 +943,7 @@ function lockUI() {
     $(".direction").hover(function() {
         $(this).css("color", "black");
     });
+    hideEatButton();
 }
 
 function moveMapMarker(newRow, newIndex) {
@@ -1144,6 +1173,36 @@ function displayCurrentPlayerInfo() {
     displayHealth(currentHealth);
 }
 
+function displayEatButton() {
+    $(".eat").css("display", "inline-block");
+}
+
+function hideEatButton() {
+    $(".eat").css("display", "none");
+}
+
+function toggleEatButton(location) {
+    if(location.row === 4 && location.index === 0 && location.biome === EGGNEST) {
+        if(eggsNorthCount === 0) {
+            hideEatButton();
+        }
+        else {
+            displayEatButton();
+        }
+    }
+    else if(location.row === 13 && location.index === 7 && location.biome === EGGNEST) {
+        if(eggsSouthCount === 0) {
+            hideEatButton();
+        }
+        else {
+            displayEatButton();
+        }
+    }
+    else {
+        hideEatButton();
+    }
+}
+    
 $(document).ready(function() { 
     
     // display home
@@ -1168,15 +1227,17 @@ $(document).ready(function() {
                 idleTime = 0;
             }
             
-            console.log("Compass click: " + this.id);
-            var newPos = move(this.id);
-            moveMapMarker(currentLocation.row, currentLocation.index);
-
-            // Prints a description to top div
-            createDescription();
-            displayCurrentPlayerInfo();
-
+            // Player did not die from being pounced
             if(!pounceDeath) {
+                // move
+                var newPos = move(this.id);
+                moveMapMarker(currentLocation.row, currentLocation.index);
+                // if this is an egg nest, display eat button
+                toggleEatButton(currentLocation);
+                // Prints a description to top div
+                createDescription();
+                displayCurrentPlayerInfo();
+                
                 checkGameOver(currentEnergy, currentHealth);
             }
             
@@ -1193,6 +1254,9 @@ $(document).ready(function() {
         console.log("Attacking " + this.parentNode.parentNode.id);
         attack(window[this.parentNode.parentNode.id]);
         
+        // died from attack?
+        var deathType = checkGameOver(currentEnergy, currentHealth);
+        
         // TODO: make it so some enemies remain?
         var lastEnemy = window[this.parentNode.parentNode.id];
         
@@ -1200,13 +1264,14 @@ $(document).ready(function() {
         pounceDeath = pounceAll();
         idleTime++;
         
-        generateEnemies(currentLocation.row, currentLocation.index);
-        writeReloadDescription(lastEnemy);
-
-        displayCurrentPlayerInfo();
-        
-        if(!pounceDeath) {
-            checkGameOver(currentEnergy, currentHealth);
+        // only move onto next step if enemy has not pounced and killed player
+        if(!pounceDeath && deathType === NOT_DIE) {
+            // create enemies for area
+            generateEnemies(currentLocation.row, currentLocation.index);
+            // same enemy?
+            writeReloadDescription(lastEnemy);
+            // update UI
+            displayCurrentPlayerInfo();
         }
     
         pb.flushBuffer();
@@ -1224,6 +1289,30 @@ $(document).ready(function() {
      */
     $(".info").click(function() {
         console.log("Infosheet");
+    });
+    
+    $(".eat").click(function() {
+        console.log("Eating");
+        
+        var pounceDeath = false;
+        pounceDeath = pounceAll();
+        idleTime++;
+        
+        if(pounceDeath === false) {
+            eatEgg(currentLocation);
+
+            // TODO: location, replace egg nest count, etc.
+            displayCurrentPlayerInfo();
+
+            writeLocationDescription(currentLocation.row, currentLocation.index);
+            generateEnemies(currentLocation.row, currentLocation.index);
+            writeEatEgg();
+            writeEggDescription(currentLocation.row, currentLocation.index);
+
+            toggleEatButton(currentLocation);
+        }
+        
+        pb.flushBuffer();
     });
     
     $("#restartgame").click(function() {
@@ -1360,42 +1449,39 @@ function writeReloadDescription(lastEnemy) {
     }
     else if(enemyList.length === 1) {
         if(sameIndex === 0) {
-            description = description + "another " + window[enemyList[0].name.toUpperCase()].name.toLowerCase() + ".";
+            description = description + "another " + enemyList[0].name.toLowerCase() + ".";
         }
         else {
-            description = description + window[enemyList[0].name.toUpperCase() + "_DESC"] + ".";
+            description = description + enemyList[0].description + ".";
         }   
     }
     else if(enemyList.length === 2) {
         if(sameIndex === 0) {
-            description = description + "another " + window[enemyList[0].name.toUpperCase()].name.toLowerCase() + " and " + window[enemyList[1].name.toUpperCase() + "_DESC"] + ".";
+            description = description + "another " + enemyList[0].name.toLowerCase() + " and " + enemyList[1].description + ".";
         }
         else if(sameIndex === 1) {
-            description = description + window[enemyList[0].name.toUpperCase() + "_DESC"] + " and another " + window[enemyList[1].name.toUpperCase()].name.toLowerCase() + ".";    
+            description = description + enemyList[0].description + " and another " + enemyList[1].name.toLowerCase() + ".";    
         }
         else {
-            description = description + window[enemyList[0].name.toUpperCase() + "_DESC"] + " and " + window[enemyList[1].name.toUpperCase() + "_DESC"] + "."; 
+            description = description + enemyList[0].description + " and " + enemyList[1].description + "."; 
         }
     }
     else {
-        for(var i = 0; i < (enemyList.length - 1); i++) {
-            console.log(enemyList[i].name.toUpperCase() + "_DESC");
-            
+        for(var i = 0; i < (enemyList.length - 1); i++) {            
             // add the "another"
             if(sameIndex === i) {
                 description = description + "another " + window[enemyList[i].name.toUpperCase()].name.toLowerCase() + ", ";
                 continue;
             }
             
-            description = description + window[enemyList[i].name.toUpperCase() + "_DESC"] + ", ";
+            description = description + enemyList[i].description + ", ";
         }
         // ... and ....
-        console.log(enemyList[enemyList.length - 1].name.toUpperCase() + "_DESC");
         if(sameIndex === enemyList.length - 1) {
             description = description + "and another " + window[enemyList[enemyList.length - 1].name.toUpperCase()].name.toLowerCase() + ".";
         }
         else {
-            description = description + "and " + window[enemyList[enemyList.length - 1].name.toUpperCase() + "_DESC"] + ".";
+            description = description + "and " + enemyList[enemyList.length - 1].description + ".";
         }
     }
     console.log("Write: wrote to buffer: " + description);
@@ -1424,31 +1510,56 @@ function writeEnemyDescription() {
         description = "You see nothing of interest.";
     }
     else if(enemyList.length === 1) {
-        description = description + window[enemyList[0].name.toUpperCase() + "_DESC"] + ".";
+        description = description + enemyList[0].description + ".";
     }
     else if(enemyList.length === 2) {
-        description = description + window[enemyList[0].name.toUpperCase() + "_DESC"] + " and " + window[enemyList[1].name.toUpperCase() + "_DESC"] + "."; 
+        description = description + enemyList[0].description + " and " + enemyList[1].description + "."; 
     }
     else {
         for(var i = 0; i < (enemyList.length - 1); i++) {
-            console.log(enemyList[i].name.toUpperCase() + "_DESC");
-            description = description + window[enemyList[i].name.toUpperCase() + "_DESC"] + ", ";
+            description = description + enemyList[i].description + ", ";
         }
         // ... and ....
-        console.log(enemyList[enemyList.length - 1].name.toUpperCase() + "_DESC");
-        description = description + "and " + window[enemyList[enemyList.length - 1].name.toUpperCase() + "_DESC"] + ".";
+        description = description + "and " + enemyList[enemyList.length - 1].description + ".";
     }
     
     console.log("Write: wrote to buffer: " + description);
     pb.writeBuffer(description);
 }
 
+/*
+ * Prints quantity of eggs in nest.
+ * 
+ * @param {type} row
+ * @param {type} index
+ * @returns {undefined}
+ */
 function writeEggDescription(row, index) {
     if(row === 4 && index === 0) {   // TODO: make specific to each nest
-        pb.writeBuffer("You see " + eggsNorthCount + " eggs in the nest. Eat one?");
+        if(eggsNorthCount === 0) {
+            pb.writeBuffer("The nest is empty.");
+        }
+        else {
+            if(eggsNorthCount === 1) {
+                pb.writeBuffer("You see " + eggsNorthCount + " egg in the nest. Eat one?");
+            }
+            else {
+                pb.writeBuffer("You see " + eggsNorthCount + " eggs in the nest. Eat one?");
+            }
+        }
     }
     if(row === 13 && index === 7) {
-        pb.writeBuffer("You see " + eggsSouthCount + " eggs in the nest. Eat one?");
+        if(eggsSouthCount === 0) {
+            pb.writeBuffer("The nest is empty.");
+        }
+        else {
+            if(eggsSouthCount === 1) {
+                pb.writeBuffer("You see " + eggsSouthCount + " egg in the nest. Eat one?");
+            }
+            else {
+                pb.writeBuffer("You see " + eggsSouthCount + " eggs in the nest. Eat one?");
+            }
+        }
     }
 }
 
@@ -1487,7 +1598,7 @@ function writeAttack(enemy, damage) {
     var struggle = "There is a struggle and you are injured.";
     var attackMessage = "You attack and eat the " + enemy.name.toLowerCase() + ".";
     
-    if(damage > 0) {
+    if(damage > 0 && damage < 100) {
         attackMessage = attackMessage + " " + struggle;
     }
     
@@ -1516,7 +1627,7 @@ function writeGameOver(deathType) {
 }
 
 function writePounceResult(enemy, pounceSuccess) {
-    var desc = "A " + enemy.name.toLowerCase() + " pounces";
+    var desc = articleGenerator(enemy.name) + " " + enemy.name.toLowerCase() + " pounces";
     
     if(pounceSuccess) {
         if(currentHealth <= 0) {
@@ -1533,6 +1644,11 @@ function writePounceResult(enemy, pounceSuccess) {
     else {
         desc = desc + " but you manage to escape unharmed.";
     }
+}
+
+function writeEatEgg() {
+    var desc = "You eat an egg.";
+    pb.writeBuffer(desc);
 }
 /***** Tests *****/
 
@@ -1574,6 +1690,25 @@ function testWriteRiverBorder() {
  */
 function getRandomNum(lower, upper) {
     return (Math.random() * upper) + lower;
+}
+
+/*
+ * Generate an article (a, an) for a word. Does not take into consideration 
+ * phenomes (eg. hour --> a hour).
+ * 
+ * @param {type} word
+ * @returns {String}
+ */
+function articleGenerator(word) {
+    var vowels = ["a", "e", "i", "o", "u"];
+    var firstChar = word.charAt(0).toLowerCase();
+    
+    for(var i = 0; i < vowels.length; i++) {
+        if(firstChar === vowels[i]) {
+            return "An";
+        }
+    }
+    return "A";
 }
 
 /*

@@ -238,3 +238,7 @@ td {
 td {
     background-color: #303030;
 }
+
+.eat {
+    display: none;
+}
