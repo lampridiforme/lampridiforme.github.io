@@ -1,17 +1,75 @@
-
-html {
-    height: 100%; /* chain of command for nav height */
+html, body, div, p {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
 }
 
 body {
-    text-align: center;
-    background-color: #3a3a3a;
+	height: 100%;
+	width: 100%;
+    background-color: #363636;
+    font-family: 'Montserrat', sans-serif;
     color: white;
-    height: 100%; /* chain of command for nav height */
 }
 
-div,p,hr {
-    display: none;
+#mainlogo, #maincontact {
+	width: 100%;
+	text-align: center;
+}
+
+#mainlogo>p {
+	font-size: 70px;
+}
+
+#mainlogo>img {
+	width: 15%;
+	min-width: 100px;
+	margin-top: 20px;
+}
+
+#maincontact {
+	margin-top: 10px;
+	margin-bottom: 30px;
+	font-size: 20px;
+}
+
+#mainprojects {
+	width: 60%;
+	margin-left: 20%;
+	border-radius: 20px;
+	height: 100px;
+	font-size: 30px;
+	margin-top: 40px;
+	text-align: center;
+}
+
+.project {
+	margin: 10px 0px 10px 0px;
+	width: 100%;
+	height: 100px;
+}
+
+.projdesc {
+	color: #adadad;
+	font-size: 17px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.tinylogo {
+	width: 30px;
+	display: inline-block;
+}
+
+.left {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+#mainprojects>hr {
+	width: 50%;
 }
 
 a:link {
@@ -26,61 +84,4 @@ a:visited, a:hover {
 
 a:visited:hover {
     color: white;
-}
-
-footer {
-    height: 5%;
-}
-
-hr {
-    width: 50%;
-}
-
-.mainhr {
-    width: 30%;
-}
-
-.uselessnav {
-    height: 5vh;
-    width: 85%;
-    margin: 0 auto; /* center horizontally */
-}
-
-.usefulnav {
-    width: 85%;
-    margin: 0 auto; /* center horizontally */
-    font-size: 20px;
-    padding-bottom: 20px;
-}
-
-.mainmenu.pagetitle {
-    font-size: 70px !important;
-}
-
-.mainmenu {
-    font-size: 50px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    width: 85%;
-}
-
-.mainlogo>img {
-    width: 15%;
-    max-width: 250px;
-    min-width: 75px;
-    height: auto;
-}
-.pagetitle {
-  font-size: 50px;
-}
-
-.pagecontent {
-  margin: 0 auto; /* center horizontally */
-  width: 85%;
-  font-size: 20px;
-}
-
-.projecttitle {
-    font-size: 30px;
-    margin-bottom: -10px;
 }
