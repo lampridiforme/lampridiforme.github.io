@@ -72,11 +72,17 @@ body {
 	width: 50%;
 }
 
-a:link {
+a:link, a:visited {
     color: white;
     text-decoration: none;
 }
 
+a:hover {
+    color: #6b6b6b;
+    text-decoration: none;
+}
+
+/*
 a:visited, a:hover {
     color: #6b6b6b;
     text-decoration: none;
@@ -85,3 +91,4 @@ a:visited, a:hover {
 a:visited:hover {
     color: white;
 }
+*/

@@ -7,5 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "lampridiforme",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lampridiforme/lampridiforme.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lampridiforme/lampridiforme.github.io/issues"
+  },
+  "homepage": "https://github.com/lampridiforme/lampridiforme.github.io#readme",
+  "dependencies": {
+    "bootstrap": "^4.1.3"
+  }
 }
