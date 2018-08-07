@@ -1,2 +1,2 @@
-javascript/timer.js
-javascript/timer.js
+*.sw*
+.gitignore
