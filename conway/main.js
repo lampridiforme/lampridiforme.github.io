@@ -4,14 +4,17 @@ let conway = ConwayLogic;
 let canvas = document.getElementById('gameScreen');
 let context = canvas.getContext('2d');
 
-let length = 100; // user defined size
 let width = 1000;
 let height = 1000;
 let gridSize = 10;
 
-let confettiMode = false;
+let confettiMode = false; // :)
 let paused = false;
 let fps = 100;
+
+let history = [];
+let currentStepNum = -1; // ignore init
+let doneRunning = false;
 
 function pause() {
   paused = true;
@@ -24,15 +27,28 @@ function run() {
 function initCanvas() {
   canvas.setAttribute('width', width);
   canvas.setAttribute('height', height);
-  let arena = conway.init(width/gridSize, true, true, false);
-  renderArena(arena);
-  console.log(conway);
-  console.log(arena);
+  let arena = conway.init(width/gridSize, true, true, true);
 }
 
 function step() {
-  let arena = conway.next();
-  renderArena(arena);
+  let arena;
+
+  // up to date
+  if(currentStepNum === history.length-1) {
+    arena = conway.next();
+    history.push(deepCopy(arena));
+  }
+  else {
+    arena = history[currentStepNum+1];
+  }
+
+  if(arena){ 
+    renderArena(arena);
+    currentStepNum++;
+  }
+  else {
+    doneRunning = true;
+  }
 }
 
 function renderArena(arena) {
@@ -50,11 +66,90 @@ function renderArena(arena) {
 }
 
 function getColor() {
-  let colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+  let colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
   return confettiMode ? colors[Math.floor(Math.random()*colors.length)] : "white";
 }
 
+function deepCopy(elem) {
+  return JSON.parse(JSON.stringify(elem));
+}
+
+// ------ EVENTS -----
+
+document.getElementById('prev').addEventListener('click', function() {
+  if(paused) {
+    console.log(currentStepNum);
+    if(currentStepNum > 0) {
+      currentStepNum--;
+      renderArena(history[currentStepNum]);
+    }
+  }
+});
+
+document.getElementById('next').addEventListener('click', function() {
+  if(paused) {
+    console.log(currentStepNum);
+    step();
+  }
+});
+
+document.getElementById('toggleRun').addEventListener('click', function() {
+  if(paused) {
+    pressedPlay();
+  }
+  else {
+    pressedPause();
+  }
+});
+
+function pressedPlay() {
+  let pauseImgString = "<img src='../assets/img/conway/pause.svg' />";
+  document.getElementById('toggleRun').innerHTML = pauseImgString;
+  run();
+}
+
+function pressedPause() {
+  let playImgString = "<img src='../assets/img/conway/play.svg' />";
+  document.getElementById('toggleRun').innerHTML = playImgString;
+  pause();
+}
+
+function disableElement(id) {
+  let elem = document.getElementById(id);
+  elem.style.opacity = ".5";
+}
+
+function enableElement(id) {
+  let elem = document.getElementById(id);
+  elem.style.opacity = "1";
+}
+
+// ----- INSTANT CALLS ------
+
 initCanvas();
 setInterval(function() {
-  if(!paused) step();
+  if(!paused) {
+    step();
+    disableElement('prev');
+    disableElement('next');
+  }
+  else {
+    enableElement('prev');
+    enableElement('next');
+  }
+
+  if(doneRunning) { //TODO: why 2?
+    if(currentStepNum === history.length-2) {
+      pressedPause();
+      disableElement('toggleRun')
+      disableElement('next');      
+    }
+    else {
+      enableElement('toggleRun');
+    }
+  }
+
+  if(currentStepNum === 0) {
+    disableElement('prev');
+  }
 }, fps);

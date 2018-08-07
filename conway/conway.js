@@ -29,7 +29,6 @@ ConwayLogic = function() {
 		}
 		else {
 			update(arena);
-			printArena(arena);
 		}
 		return arena;
 	}
@@ -64,7 +63,7 @@ ConwayLogic = function() {
 		for(let i = 0; i < arr.length; i++) {
 			for(let j = 0; j < arr[i].length; j++) {
 				// generate 1 or 0
-				arr[i][j] = Math.floor((Math.random()*2));
+				arr[i][j] = (getRandomInt(0,20) === 1) ? 1 : 0;
 			}
 		}
 	}
@@ -195,10 +194,10 @@ ConwayLogic = function() {
 		}
 		else {
 			if(x < 0) {
-				x = arr.length; 
+				x = arr.length-1; 
 			}
 			if(y < 0) {
-				y = arr[0].length;
+				y = arr[0].length-1;
 			}
 			if(x >= arr.length) {
 				x = 0;
@@ -208,6 +207,13 @@ ConwayLogic = function() {
 			}
 		}
 		return arr[x][y];
+	}
+
+	// helper
+	function getRandomInt(min, max) {
+	  min = Math.ceil(min);
+	  max = Math.floor(max);
+	  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 	}
 
 	// debug stuff ¯\_(ツ)_/¯
