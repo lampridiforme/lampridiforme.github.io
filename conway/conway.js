@@ -88,35 +88,35 @@ ConwayLogic = function() {
 				let w = 0;
 
 	            // NW
-	            nw = getBlock(arr, (i-1), (j-1));
+	            nw = getBlock(prev, (i-1), (j-1));
 	            livingNeighbors += nw;
 
 	            // N
-	            n = getBlock(arr, i, (j-1));
+	            n = getBlock(prev, i, (j-1));
 	            livingNeighbors += n;
 
 	            // NE
-	            ne = getBlock(arr, (i+1), (j-1));
+	            ne = getBlock(prev, (i+1), (j-1));
 	            livingNeighbors += ne;
 
 	            // E
-	            e = getBlock(arr, (i+1), j);
+	            e = getBlock(prev, (i+1), j);
 	            livingNeighbors += e;
 
 	            // SE
-	            se = getBlock(arr, (i+1), (j+1));
+	            se = getBlock(prev, (i+1), (j+1));
 	            livingNeighbors += se;
 
 	            // S
-	            s = getBlock(arr, i, (j+1));
+	            s = getBlock(prev, i, (j+1));
 	            livingNeighbors += s;
 
 	            // SW
-	            sw = getBlock(arr, (i-1), (j+1));
+	            sw = getBlock(prev, (i-1), (j+1));
 	            livingNeighbors += sw;
 
 	            // W
-	            w = getBlock(arr, (i-1), j);
+	            w = getBlock(prev, (i-1), j);
 	            livingNeighbors += w;
 
 	            // if alive
