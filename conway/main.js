@@ -28,6 +28,7 @@ function initCanvas() {
   canvas.setAttribute('width', width);
   canvas.setAttribute('height', height);
   let arena = conway.init(width/gridSize, true, true, true);
+  renderArena(arena);
 }
 
 function step() {
@@ -75,6 +76,13 @@ function deepCopy(elem) {
 }
 
 // ------ EVENTS -----
+
+document.getElementById('reset').addEventListener('click', function() {
+  history = [];
+  currentStepNum = -1;
+  doneRunning = false;
+  initCanvas();
+});
 
 document.getElementById('prev').addEventListener('click', function() {
   if(paused) {
@@ -127,6 +135,7 @@ function enableElement(id) {
 // ----- INSTANT CALLS ------
 
 initCanvas();
+disableElement('prev');
 setInterval(function() {
   if(!paused) {
     step();
@@ -134,7 +143,9 @@ setInterval(function() {
     disableElement('next');
   }
   else {
-    enableElement('prev');
+    if(currentStepNum > 0) {
+      enableElement('prev');
+    }
     enableElement('next');
   }
 
