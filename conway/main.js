@@ -10,11 +10,10 @@ let gridSize = 10;
 
 let confettiMode = false; // :)
 let paused = false;
-let fps = 100;
+let fps = 60;
 
 let history = [];
 let currentStepNum = -1; // ignore init
-let doneRunning = false;
 
 function pause() {
   paused = true;
@@ -27,7 +26,7 @@ function run() {
 function initCanvas() {
   canvas.setAttribute('width', width);
   canvas.setAttribute('height', height);
-  let arena = conway.init(width/gridSize, true, true, true);
+  let arena = conway.init(width/gridSize, true, true, false);
   renderArena(arena);
 }
 
@@ -46,9 +45,6 @@ function step() {
   if(arena){ 
     renderArena(arena);
     currentStepNum++;
-  }
-  else {
-    doneRunning = true;
   }
 }
 
@@ -75,12 +71,23 @@ function deepCopy(elem) {
   return JSON.parse(JSON.stringify(elem));
 }
 
+// ------ RANGES -----
+// document.getElementById('size').addEventListener('change', function() {
+//   gridSize = document.getElementById('size').value;
+//   document.getElementById('sizeVal').innerHTML = gridSize;
+//   initCanvas();
+// });
+
+// document.getElementById('fps').addEventListener('change', function() {
+//   fps = document.getElementById('fps').value;
+//   document.getElementById('fpsVal').innerHTML = fps;
+// });
+
 // ------ EVENTS -----
 
 document.getElementById('reset').addEventListener('click', function() {
   history = [];
   currentStepNum = -1;
-  doneRunning = false;
   initCanvas();
 });
 
@@ -147,17 +154,6 @@ setInterval(function() {
       enableElement('prev');
     }
     enableElement('next');
-  }
-
-  if(doneRunning) { //TODO: why 2?
-    if(currentStepNum === history.length-2) {
-      pressedPause();
-      disableElement('toggleRun')
-      disableElement('next');      
-    }
-    else {
-      enableElement('toggleRun');
-    }
   }
 
   if(currentStepNum === 0) {
