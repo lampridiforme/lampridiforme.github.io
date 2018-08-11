@@ -10,7 +10,7 @@ let gridSize = 10;
 
 let confettiMode = false; // :)
 let paused = false;
-let fps = 60;
+let fps = 10;
 
 let history = [];
 let currentStepNum = -1; // ignore init
@@ -71,6 +71,31 @@ function deepCopy(elem) {
   return JSON.parse(JSON.stringify(elem));
 }
 
+// what happens each frame
+function intervalLogic(newFps) {
+  if(!paused) {
+    step();
+    disableElement('prev');
+    disableElement('next');
+  }
+  else {
+    if(currentStepNum > 0) {
+      enableElement('prev');
+    }
+    enableElement('next');
+  }
+
+  if(currentStepNum === 0) {
+    disableElement('prev');
+  }
+  setTimeout(intervalLogic, 1000 / fps);
+};
+
+// set how fast
+function setFps(newFps) {
+  fps = newFps;
+};
+
 // ------ RANGES -----
 // document.getElementById('size').addEventListener('change', function() {
 //   gridSize = document.getElementById('size').value;
@@ -78,10 +103,11 @@ function deepCopy(elem) {
 //   initCanvas();
 // });
 
-// document.getElementById('fps').addEventListener('change', function() {
-//   fps = document.getElementById('fps').value;
-//   document.getElementById('fpsVal').innerHTML = fps;
-// });
+document.getElementById('fps').addEventListener('input', function() {
+  let input = document.getElementById('fps').value;
+  setFps(input);
+  document.getElementById('fpsVal').innerHTML = input;
+});
 
 // ------ EVENTS -----
 
@@ -143,20 +169,22 @@ function enableElement(id) {
 
 initCanvas();
 disableElement('prev');
-setInterval(function() {
-  if(!paused) {
-    step();
-    disableElement('prev');
-    disableElement('next');
-  }
-  else {
-    if(currentStepNum > 0) {
-      enableElement('prev');
-    }
-    enableElement('next');
-  }
+setTimeout(intervalLogic, 1000 / fps);
 
-  if(currentStepNum === 0) {
-    disableElement('prev');
-  }
-}, fps);
+// setInterval(function() {
+//   if(!paused) {
+//     step();
+//     disableElement('prev');
+//     disableElement('next');
+//   }
+//   else {
+//     if(currentStepNum > 0) {
+//       enableElement('prev');
+//     }
+//     enableElement('next');
+//   }
+
+//   if(currentStepNum === 0) {
+//     disableElement('prev');
+//   }
+// }, fps);
