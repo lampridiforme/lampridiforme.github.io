@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Arbor</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="#" />
+        <script src="js/jquery-3.2.1.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <link href="css/arbor.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="top">
+                <div id="location">
+                    <div id="locationimage">
+
+                    </div>
+                    <div id="locationdesc">
+                        The grid to the right will display your current location in the world. In general, green represents forest, yellow/orange represents plains, purple represents wetland, and blue represents water.
+                        <br>
+                        <br>
+                        Tips:
+                        <ul>
+                            <li>
+                                The forests are safe, but bigger game lives on the plains.
+                            </li>
+                            <li>
+                                Getting too close to water can be dangerous if you're young!
+                            </li>
+                            <li>
+                                Don't spend too much time in one spot or else an enemy might pounce on you.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="mover" style="padding-bottom: 5vh">
+                    <div id="minimap">
+                        <table id="minimaptable">
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td style="background-color: #62c43e">
+                                    <div id="placemark"></div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="compass">
+                        <div id="compasscol1">
+                            <div id="northwest" class="direction">
+                                NW
+                            </div>
+                            <div id="west" class="direction">
+                                W
+                            </div>
+                            <div id="southwest" class="direction">
+                                SW
+                            </div>
+                        </div>
+                        <div id="compasscol2">
+                            <div id="north" class="direction">
+                                N
+                            </div>
+                            <div id="wait" class="direction">
+                                wait
+                            </div>
+                            <div id="south" class="direction">
+                                S
+                            </div>
+                        </div>
+                        <div id="compasscol3">
+                            <div id="northeast" class="direction">
+                                NE
+                            </div>
+                            
+                            <div id="east" class="direction">
+                                E
+                            </div>
+                            <div id="southeast" class="direction">
+                                SE
+                            </div>
+                        </div>
+                    </div>  
+                    <div>
+                        This is your compass. Click on a direction to go that way. You spend more energy moving than waiting.
+                    </div>
+                </div>
+                <div id="info" style="padding-bottom: 5vh">
+                    <div id="weight" class="infosection">
+                        Your weight will be displayed here.
+                    </div>
+                    <div id="energy" class="infosection">
+                        Your energy will be displayed here. Attack enemies to replenish it.
+                    </div>
+                    <div id="health" class="infosection">
+                        Your health will be displayed here.
+                    </div>
+                </div>
+            </div>
+            <div id="middle">
+                <div id="enemies">
+                    <div id="enemy1" class="sampleenemy" style="display: inline-block">
+                        <div class="portrait">
+                            <img src="img/testimgs/square.png" alt=""/>
+                        </div>
+                        <div class="desc">
+                            <div class="enemyname">
+                                Lizard
+                            </div>
+                            <div class="stats">
+                                <div class="enemysize">
+                                    Danger
+                                    <div class="sizebar" style="width: 10%; background-color: lime">
+                                        
+                                    </div>
+                                </div>
+                                <div class="enemyagility">
+                                    Agility
+                                    <div class="agilitybar" style="width: 23%; background-color: lime">
+                                        
+                                    </div>
+                                </div>
+                                <div class="enemyenergy">
+                                    Energy
+                                    <div class="energybar" style="width: 12%; background-color: lime">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="attack actionbutton">
+                                Attack
+                            </div>
+                            <div class="info actionbutton">
+                                Info
+                            </div>
+                        </div>
+                    </div>
+                    <div id="enemy2" class="sampleenemy" style="display: inline-block; border-style: none">
+                        <div class="desc" style="width: 100%;">
+                            That lizard has a green danger level, so it's easy pickings. 
+                            <br>
+                            However, attacking the Lung is a bad idea. 
+                            <br><br>
+                            If an enemy has a yellow danger bar, you will be injured but not killed.
+                        </div>
+                    </div>
+                    <div id="enemy3" class="sampleenemy" style="display: inline-block">
+                        <div class="portrait">
+                            <img src="img/testimgs/square.png" alt=""/>
+                        </div>
+                        <div class="desc">
+                            <div class="enemyname">
+                                Adult Lung
+                            </div>
+                            <div class="stats">
+                                <div class="enemysize">
+                                    Danger
+                                    <div class="sizebar" style="width: 80%">
+                                        
+                                    </div>
+                                </div>
+                                <div class="enemyagility">
+                                    Agility
+                                    <div class="agilitybar" style="width: 15%; background-color: lime">
+                                        
+                                    </div>
+                                </div>
+                                <div class="enemyenergy">
+                                    Energy
+                                    <div class="energybar" style="width: 100%; background-color: lime">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="attack actionbutton">
+                                Attack
+                            </div>
+                            <div class="info actionbutton">
+                                Info
+                            </div>
+                        </div>
+                    </div>
+                    <div id="enemy4" class="sampleenemy">
+                        <div class="portrait">
+                            <img src="img/testimgs/square.png" alt=""/>
+                        </div>
+                        <div class="desc">
+                            <div class="enemyname">
+                                Enemy4
+                            </div>
+                            <div class="stats">
+                                <div class="enemysize">
+                                    Danger
+                                    <div class="sizebar">
+                                        
+                                    </div>
+                                </div>
+                                <div class="enemyagility">
+                                    Agility
+                                    <div class="agilitybar">
+                                        
+                                    </div>
+                                </div>
+                                <div class="enemyenergy">
+                                    Energy
+                                    <div class="energybar">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="attack actionbutton">
+                                Attack
+                            </div>
+                            <div class="mate actionbutton">
+                                Mate
+                            </div>
+                            <div class="info actionbutton">
+                                Info
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bottom">
+                <div id="home" style="color: grey">
+                    | Project Home |
+                </div>
+                <div id="restartlevel" style="color: grey">
+                    | Restart Level |
+                </div>
+                <div id="restartgame" style="color: grey">
+                    | Restart Game |
+                </div>
+                <div id="help" style="color: grey">
+                    | Help |
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
