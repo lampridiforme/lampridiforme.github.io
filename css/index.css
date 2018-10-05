@@ -59,6 +59,11 @@ body {
 	display: inline-block;
 }
 
+.tinylogowide {
+	width: 40px;
+	display: inline-block;
+}
+
 .left {
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);

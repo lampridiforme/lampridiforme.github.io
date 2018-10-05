@@ -26,7 +26,7 @@ function run() {
 function initCanvas() {
   canvas.setAttribute('width', width);
   canvas.setAttribute('height', height);
-  let arena = conway.init(width/gridSize, true, true, false);
+  let arena = conway.init(100, true, true, false);
   renderArena(arena);
 }
 

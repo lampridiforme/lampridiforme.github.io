@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Dawkin's Weasel</title>
+    <script type="text/javascript" src="./weasel.js"></script>
+	<style>
+		p, div {
+			margin: 0;
+			padding: 0;
+			font-family: sans-serif;
+		}
+
+		body {
+			background-image: url('./img/clouds.jpg');
+			width: 100%;
+			height: 100%;
+		}
+
+		fieldset {
+			border: none;
+		}
+
+		input[type="text"], input[type="number"] {
+			border: none;
+			border-bottom: solid;
+			background-color: rgb(255, 255, 255, 0);
+			text-align: center;
+		}
+
+		.blockContainer {
+
+		}
+
+		.contentContainer {
+			background-color: rgb(255, 255, 255, .5);
+			border-radius: 30px;
+			padding: 2%;
+		}
+
+		.fittest {
+			color: green;
+			text-shadow: 0 0 6px yellowgreen;
+			font-size: 20px;
+		}
+
+		#help {
+			border-radius: 1000px;
+			height: 30px;
+			width: 30px;
+			background-color: rgb(255, 255, 255, .8);
+			position: absolute;
+			left: 35px;
+			top: 35px;
+			text-align: center;
+			font-size: 25px;
+			cursor: pointer;
+		}
+
+		#settings {
+			height: 20%;
+			overflow: scroll;
+		}
+
+		#result {
+			max-height: 45%;
+			overflow: scroll;
+		}
+
+		#mainContainer {
+			background-color: rgb(255, 255, 255, .2);
+			width: 90%;
+			height: 90%;
+			left: 5%;
+			top: 5%;
+			position: absolute;
+			border-radius: 50px;
+		}
+
+		#mainContent {
+			margin: 5%;
+			height: 100%;
+		}
+	</style>
+  </head>
+  <body>
+  	<div id="mainContainer">
+<!--   		<div id="help">?</div>
+ -->  		<div id="mainContent">
+<!-- 		  	<div class="contentContainer blockContainer" style="">
+		  		<p>
+		  			Dawkin's Weasel is a thought experiment meant to illustrate how non-random selection of random elements, such as natural selection, still is different from a purely random system.
+		  		</p> 
+		  		<p>
+		  			The trait being selected is similarity to a target phrase, usually "METHINKS IT IS LIKE A WEASEL", and the elements being selected are series of randomly generated letters.
+		  		</p> 
+		  		<p>
+		  			Each generation a parent phrase generates a number of mutant copies, and of those child phrases the one most similar to the target becomes the new parent.
+		  		</p> 
+		  		<p>
+		  			Eventually, the target phrase will emerge.
+		  		</p>
+				<p>
+					Try it yourself by typing in a phrase and seeing how many generations it takes to get to the target from a randomly generated parent.
+				</p>
+				<p>
+					You can also adjust other parementers and see the effects they have on the generation count.
+				</p>
+		  	</div> -->
+		  	<div id="settings" class="contentContainer blockContainer" style="margin-top: 2%; text-align: center;">
+		  		<form>
+		  			<fieldset>
+		  				<label for="target">Target Phrase:</label>
+		  				<input id="targetTextbox" type="text" name="target" value="METHINKS IT IS A WEASEL" size=50 />
+					</fieldset>
+					<fieldset>
+						<label for="generation">Generation Size:</label>
+						<input id="generationSlider" type="range" name="generationSlider" max=999 min=1 value=100 />
+						<input id="generationTextbox" type="number" name="generation" max=999 min=1 value=100 />
+					</fieldset>
+					<fieldset>
+						<label for="mutation">Mutation Rate:</label>
+						<input id="mutationSlider" type="range" name="mutationSlider" max=100 min=1 value=5 />
+						<input id="mutationTextbox" type="number" name="mutation" max=100 min=1 value=5 />
+					</fieldset>
+		  		</form>
+<!-- 		  		<button id="weaselButton">GO!</button> -->		  		
+				<button id="nextGenButton">Next Generation</button>
+				<button id="autoButton">Turn Auto On</button>
+				<button id="showButton">Show Everything</button>
+		  	</div>
+		  	<div id="result" class="contentContainer blockContainer" style="margin-top: 2%; text-align: center;">
+		  		Press the "Next Generation" button to start!
+		  	</div>
+		</div>
+  	</div>
+  </body>
+	<script>
+		let config = {
+			gensliderId: 'generationSlider',
+			gentextId: 'generationTextbox',
+			mutsliderId: 'mutationSlider',
+			muttextId: 'mutationTextbox',
+			targettextId: 'targetTextbox',
+			goButton: 'weaselButton',
+			genButton: 'nextGenButton',
+			autoButton: 'autoButton',
+			showAllButton: 'showButton',
+			display: 'result',
+		}
+
+		let prevTarget = "";
+		let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+
+		let fps = 5;
+		let paused = true;
+		let showAllGens = false;
+
+		// get target phrase
+		document.getElementById(config.targettextId).addEventListener("blur", function(e) {
+			let currVal = document.getElementById(config.targettextId).value;
+			let currValDebug = currVal;
+			currVal = currVal.toUpperCase();
+
+			for (let i = 0; i < currVal.length; i++) {
+				if (alphabet.indexOf(currVal.charAt(i)) === -1) {
+					console.log("could not find " + currVal.charAt(i));
+					currVal = currVal.slice(0, i) + currVal.slice(i+1, currVal.length);
+				}
+			}
+
+			document.getElementById(config.targettextId).value = currVal;
+		});
+
+		// bind slider and text box together (generation)
+		document.getElementById(config.gensliderId).addEventListener("input", function(e) {
+			let currVal = document.getElementById(config.gensliderId).value;
+			document.getElementById(config.gentextId).value = currVal;
+		});
+		document.getElementById(config.gentextId).addEventListener("blur", function(e) {
+			let currVal = document.getElementById(config.gentextId).value;
+
+			// validate
+			if (currVal < 1) {
+				currVal = 1;
+			}
+			if (currVal > 999) {
+				currVal = 999;
+			}
+			document.getElementById(config.gentextId).value = currVal;
+
+			document.getElementById(config.gensliderId).value = currVal;
+			//init();
+		});
+		document.getElementById(config.gentextId).addEventListener("input", function(e) {
+			let currVal = document.getElementById(config.gentextId).value;
+			document.getElementById(config.gensliderId).value = currVal;
+		});
+
+		// bind slider and text box together (mutation)
+		document.getElementById(config.mutsliderId).addEventListener("input", function(e) {
+			let currVal = document.getElementById(config.mutsliderId).value;
+			document.getElementById(config.muttextId).value = currVal;
+		});
+		document.getElementById(config.muttextId).addEventListener("blur", function(e) {
+			let currVal = document.getElementById(config.muttextId).value;
+
+			// validate
+			if (currVal < 1) {
+				currVal = 1;
+			}
+			if (currVal > 100) {
+				currVal = 100;
+			}
+			document.getElementById(config.muttextId).value = currVal;
+
+			document.getElementById(config.mutsliderId).value = currVal;
+			//init();
+		});
+		document.getElementById(config.muttextId).addEventListener("input", function(e) {
+			let currVal = document.getElementById(config.muttextId).value;
+			document.getElementById(config.mutsliderId).value = currVal;
+		});
+
+		// blur to initialize weasel params (if not listed here, the listener is in above)
+		function init() {
+			let target = document.getElementById(config.targettextId).value;
+			let mutRate = document.getElementById(config.muttextId).value;
+			let genSize = document.getElementById(config.gentextId).value;
+
+			weasel.init(target, mutRate, genSize);
+		}
+
+		//document.getElementById(config.mutsliderId).addEventListener("blur", init);
+		//document.getElementById(config.gensliderId).addEventListener("blur", init);
+
+		// initialization button event
+		// document.getElementById(config.goButton).addEventListener("click", function(e) {
+		// 	let target = document.getElementById(config.targettextId).value;
+		// 	let mutRate = document.getElementById(config.muttextId).value;
+		// 	let genSize = document.getElementById(config.gentextId).value;
+
+		// 	weasel.init(target, mutRate, genSize);
+		// });
+
+		// next generation button event
+		document.getElementById(config.genButton).addEventListener("click", function(e) {
+			nextGen();
+		});
+
+		document.getElementById(config.autoButton).addEventListener("click", function(e) {
+			paused = !paused;
+			document.getElementById(config.autoButton).innerHTML = (paused) ? "Turn Auto Off" : "Turn Auto On";
+		});
+
+		document.getElementById(config.showAllButton).addEventListener("click", function(e) {
+			showAllGens = !showAllGens;
+			(weasel.getCurrentFittest()) ? renderGen() : null;
+			document.getElementById(config.showAllButton).innerHTML = (showAllGens) ? "Hide Everything" : "Show Everything";
+		});
+
+		function renderGen() {
+			let toDisplay = "Generation " + weasel.getCurrentGenCount() + ": " + weasel.getCurrentFittest();
+			if (showAllGens) {
+				let currGen = weasel.getCurrentGeneration();
+				toDisplay = "<u>Generation " + weasel.getCurrentGenCount() + '</u><br><br>';
+
+				for (let i = 0; i < currGen.length; i++) {
+					toDisplay += (currGen[i] === weasel.getCurrentFittest()) ? '<span class="fittest">' + currGen[i] + '</span><br>' : currGen[i] + '<br>';
+				}
+			}
+
+			document.getElementById(config.display).innerHTML = toDisplay;
+		}
+
+		function nextGen() {
+			let currVal = document.getElementById(config.targettextId).value;
+
+			// reset if a new target has been entered
+			if (prevTarget !== currVal) {
+				console.log("init!!!!");
+				init();
+				prevTarget = currVal;
+			}
+			
+			weasel.createNextGeneration();
+			renderGen();
+		}
+
+		function intervalLogic() {
+			if (!paused) {
+				nextGen();
+			}
+			else {
+				console.log("paused");
+			}
+		}
+
+		setInterval(intervalLogic, 1000 / fps);
+
+	</script>
+</html>
