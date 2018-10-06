@@ -119,8 +119,8 @@
 					</fieldset>
 					<fieldset>
 						<label for="mutation">Mutation Rate:</label>
-						<input id="mutationSlider" type="range" name="mutationSlider" max=100 min=1 value=5 />
-						<input id="mutationTextbox" type="number" name="mutation" max=100 min=1 value=5 />
+						<input id="mutationSlider" type="range" name="mutationSlider" max=20 min=1 value=5 />
+						<input id="mutationTextbox" type="number" name="mutation" max=20 min=1 value=5 />
 					</fieldset>
 		  		</form>
 <!-- 		  		<button id="weaselButton">GO!</button> -->		  		
@@ -211,8 +211,8 @@
 			if (currVal < 1) {
 				currVal = 1;
 			}
-			if (currVal > 100) {
-				currVal = 100;
+			if (currVal > 20) {
+				currVal = 20;
 			}
 			document.getElementById(config.muttextId).value = currVal;
 
