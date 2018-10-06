@@ -17,6 +17,12 @@
 			height: 100%;
 		}
 
+		a:visited, a:link, a:active, a:hover {
+			text-decoration: none;
+			text-shadow: 0 0 8px rgb(40,40,50) /*rgb(168,168,167)*/;
+			color: white /*rgb(79,80,82)*/;
+		}
+
 		fieldset {
 			border: none;
 		}
@@ -40,8 +46,12 @@
 
 		.fittest {
 			color: green;
-			text-shadow: 0 0 6px yellowgreen;
+			text-shadow: 0 0 10px yellowgreen;
 			font-size: 20px;
+		}
+
+		.subtext {
+			font-size: 12px;
 		}
 
 		#help {
@@ -59,6 +69,7 @@
 
 		#settings {
 			height: 20%;
+			min-height: 140px;
 			overflow: scroll;
 		}
 
@@ -87,26 +98,14 @@
   	<div id="mainContainer">
 <!--   		<div id="help">?</div>
  -->  		<div id="mainContent">
-<!-- 		  	<div class="contentContainer blockContainer" style="">
-		  		<p>
-		  			Dawkin's Weasel is a thought experiment meant to illustrate how non-random selection of random elements, such as natural selection, still is different from a purely random system.
-		  		</p> 
-		  		<p>
-		  			The trait being selected is similarity to a target phrase, usually "METHINKS IT IS LIKE A WEASEL", and the elements being selected are series of randomly generated letters.
-		  		</p> 
-		  		<p>
-		  			Each generation a parent phrase generates a number of mutant copies, and of those child phrases the one most similar to the target becomes the new parent.
-		  		</p> 
-		  		<p>
-		  			Eventually, the target phrase will emerge.
-		  		</p>
-				<p>
-					Try it yourself by typing in a phrase and seeing how many generations it takes to get to the target from a randomly generated parent.
-				</p>
-				<p>
-					You can also adjust other parementers and see the effects they have on the generation count.
-				</p>
-		  	</div> -->
+ 			<div id="info" class="contentContainer blockContainer" style="">
+		  			Dawkin's Weasel is a thought experiment meant to illustrate how non-random selection of random elements is still different from a purely random system. The trait being selected for is similarity to a target phrase and the elements being selected are series of randomly generated letters. Each generation, a number of mutant copies are generated from a parent phrase, and of those child phrases the one most similar to the target becomes the new parent. 
+					<br>
+		  			You can read more at the Wikipedia article <a href="https://en.wikipedia.org/wiki/Weasel_program" target="_blank">here</a>.
+		  			<br>
+		  			<br>
+					Try it yourself by typing in a phrase and seeing how many generations it takes to get to the target from a randomly generated parent. You can also adjust other parementers and see the effects they have on the generation count. To reset the simulation, just change any of the parameters. 
+		  	</div>
 		  	<div id="settings" class="contentContainer blockContainer" style="margin-top: 2%; text-align: center;">
 		  		<form>
 		  			<fieldset>
@@ -127,7 +126,7 @@
 <!-- 		  		<button id="weaselButton">GO!</button> -->		  		
 				<button id="nextGenButton">Next Generation</button>
 				<button id="autoButton">Turn Auto On</button>
-				<button id="showButton">Show Everything</button>
+				<button id="showButton">Show All Children</button>
 		  	</div>
 		  	<div id="result" class="contentContainer blockContainer" style="margin-top: 2%; text-align: center;">
 		  		Press the "Next Generation" button to start!
@@ -137,6 +136,7 @@
   </body>
 	<script>
 		let config = {
+			infoboxId: 'info',
 			gensliderId: 'generationSlider',
 			gentextId: 'generationTextbox',
 			mutsliderId: 'mutationSlider',
@@ -150,6 +150,8 @@
 		}
 
 		let prevTarget = "";
+		let prevGen = -1;
+		let prevMut = -1;
 		let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 
 		let fps = 5;
@@ -256,14 +258,16 @@
 		document.getElementById(config.showAllButton).addEventListener("click", function(e) {
 			showAllGens = !showAllGens;
 			(weasel.getCurrentFittest()) ? renderGen() : null;
-			document.getElementById(config.showAllButton).innerHTML = (showAllGens) ? "Hide Everything" : "Show Everything";
+			document.getElementById(config.showAllButton).innerHTML = (showAllGens) ? "Hide All Children" : "Show All Children";
+			document.getElementById(config.infoboxId).style.display = (showAllGens) ? 'none' : 'block';
 		});
 
 		function renderGen() {
 			let toDisplay = "Generation " + weasel.getCurrentGenCount() + ": " + weasel.getCurrentFittest();
 			if (showAllGens) {
 				let currGen = weasel.getCurrentGeneration();
-				toDisplay = "<u>Generation " + weasel.getCurrentGenCount() + '</u><br><br>';
+				toDisplay = "<u>Generation " + weasel.getCurrentGenCount() + '</u><br>';
+				toDisplay += "<span class='subtext'>mean difference from target: " + weasel.getMeanDiff() + " (" + weasel.getMeanSimPercent() + "% similarity)</span><br><br>";
 
 				for (let i = 0; i < currGen.length; i++) {
 					toDisplay += (currGen[i] === weasel.getCurrentFittest()) ? '<span class="fittest">' + currGen[i] + '</span><br>' : currGen[i] + '<br>';
@@ -274,13 +278,17 @@
 		}
 
 		function nextGen() {
-			let currVal = document.getElementById(config.targettextId).value;
+			let currTarget = document.getElementById(config.targettextId).value;
+			let currGen = document.getElementById(config.gentextId).value;
+			let currMut = document.getElementById(config.muttextId).value;
 
 			// reset if a new target has been entered
-			if (prevTarget !== currVal) {
+			if (prevTarget !== currTarget || prevGen !== currGen || prevMut !== currMut) {
 				console.log("init!!!!");
 				init();
-				prevTarget = currVal;
+				prevTarget = currTarget;
+				prevGen = currGen;
+				prevMut = currMut;
 			}
 			
 			weasel.createNextGeneration();

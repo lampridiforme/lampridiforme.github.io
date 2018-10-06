@@ -64,6 +64,21 @@ let weasel = function() {
 		return generations.length - 1;
 	}
 
+	function getMeanDiff() {
+		let currGen = getCurrentGeneration();
+		let sum = 0;
+		for (let i = 0; i < currGen.length; i++) {
+			sum += getSimilarity(currGen[i]);
+		}
+
+		return sum / currGen.length;
+	}
+
+	function getMeanSimPercent() {
+		let percentSim = 1 - getMeanDiff() / phraseLen;
+		return parseFloat(Math.round(percentSim * 100 * 100) / 100).toFixed(2);
+	}
+
 	// ----- HELPERS -----
 	// find similarity between target and given string
 	function getSimilarity(_str) {
@@ -137,15 +152,6 @@ let weasel = function() {
 		return str;
 	}
 
-	function intervalLogic() {
-		if (!paused) {
-
-		}
-		else {
-
-		}
-	}
-
 	// Mozilla's random int function
 	function getRandomInt(min, max) {
 	  min = Math.ceil(min);
@@ -166,6 +172,8 @@ let weasel = function() {
 		getCurrentGeneration: getCurrentGeneration,
 		getCurrentFittest: getCurrentFittest,
 		getCurrentGenCount: getCurrentGenCount,
+		getMeanDiff: getMeanDiff,
+		getMeanSimPercent: getMeanSimPercent,
 	};
 }();
 
