@@ -42,10 +42,10 @@ and open the template in the editor.
                 border-radius: 1000px;*/
             }
         </style>
-        <script src="./js/scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
-        <script src="./js/jquery-ui.min.js" type="text/javascript"></script>
+        <!-- <script src="./js/scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+        <script src="./js/jquery-ui.min.js" type="text/javascript"></script> -->
     </head>
-    <body>
+    <body id="dancefloor">
         <audio loop id="tanz">
             <source src="./assets/audio/Tanz Bruderchen.mp3" type="audio/mpeg">
             Your browser does not support the <code>audio</code> tag.
@@ -64,19 +64,14 @@ and open the template in the editor.
         <div align="center" style="z-index:9;visibility:visible;"><a href="" target="_blank" class="tfc"><img src="http://downloads.totallyfreecursors.com/public/CursorsLogo88-31.gif" border="0" width="0" height="0" alt="" /></a></div><style>HTML,BODY{cursor: url("http://downloads.totallyfreecursors.com/cursor_files/1pointer31.ani"), url("http://downloads.totallyfreecursors.com/thumbnails/1pointer31.gif"), auto;}</style>
         <script type="text/javascript">
             let partyTime = false;
-            
-            $(document).ready(function() {
-                $("dancer").click(function() {
-
-                });
-
-                $("#button").click(function() {
-                    partyTime = true;
-                    $("#button").css("display", "none");
-                    $("#dancer").css("display", "initial");
-                    $("body").css("background-color", "black").css("background-image", "url('./assets/img/bg_anime-star_rave.gif')");
-                    $("#tanz").get(0).play();
-                });
+            document.getElementById("button").addEventListener('click', () => {
+              partyTime = true;
+              console.log('pressed');
+              document.getElementById("button").style.display = "none";
+              document.getElementById("dancer").style.display = "initial";
+              document.getElementById("dancefloor").style.background = "black";
+              document.getElementById("dancefloor").style.backgroundImage = "url('./assets/img/bg_anime-star_rave.gif')";
+              document.getElementById("tanz").play();
             });
         </script>
     </body>
